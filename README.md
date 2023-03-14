@@ -29,3 +29,5 @@ npm run start
 + JS code documentation
     + [Coding standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/)
     + [Example function header](https://www.codexpedia.com/javascript/javascript-function-and-class-header-documentation/)
++ [CSS Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
++ [Github flow branching](https://docs.github.com/en/get-started/quickstart/github-flow)
