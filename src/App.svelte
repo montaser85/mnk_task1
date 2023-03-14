@@ -22,11 +22,15 @@
     display: flex;
     flex-direction: row;
     width: 90%;
-    height: 700px;
-    background-color: steelblue;
+    /* min-height: 600px; */
+    height: 90vh;
     border-style: solid;
     border-width: 1px;
     border-color: black;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    align-items: stretch;
   }
   #game{
     display: flex;
