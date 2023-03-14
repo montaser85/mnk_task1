@@ -1,5 +1,14 @@
-# node modules
-node_modules
+# Svelt and Node modules
+/node_modules/
+/public/build/
+
+# MACOSX ignore
+.DS_STORE
+
+
+# INIT GIT ignore for Node ---------------------------------------------------------------
+# INIT GIT ignore for Node ---------------------------------------------------------------
+# INIT GIT ignore for Node ---------------------------------------------------------------
 
 # Logs
 logs
