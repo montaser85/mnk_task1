@@ -8,8 +8,8 @@ npm install
 ```
 
 ## Tutorials for Svelte:
-+ [YouTube Playlisy] (https://www.youtube.com/playlist?list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO)
-+ [Svelte official tutorial] (https://svelte.dev/tutorial/basics) 
++ [YouTube Playlist](https://www.youtube.com/playlist?list=PL4cUxeGkcC9hlbrVO_2QFVqVPhlZmz7tO)
++ [Svelte official tutorial](https://svelte.dev/tutorial/basics) 
 
 ## Additional Resources
-+ [README formating how-to] (https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
++ [README formating how-to](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
