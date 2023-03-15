@@ -6,6 +6,7 @@ A web-based prototype for a Tic-Tac-Toe (MNK) game that simulates AI agent decis
 2. Set remote origin
 3. Set up node
 **NOTE:** Using Google API for fonts and icons [API](https://fonts.google.com/?icon.style=Rounded&icon.platform=web)
+4. Note that if your local machine does not have svelte installed, use the command: git clone https://github.com/sveltejs/svelte.git
 
 This project uses Node (v>8), run below to install all dependencies:
 ```
