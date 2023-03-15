@@ -8,8 +8,8 @@
 
     let btw_x1=80;
     let btw_x2=1100;
-    let btw_y1=345;
-    let btw_y2=345;
+    let btw_y1=340;
+    let btw_y2=340;
 
     let arrow1_x1=btw_x1;
     let arrow1_x2=btw_x1+10;
@@ -39,12 +39,14 @@
     let xIndex;
     let y_label_offsetX=45;
     let y_label_offsetY=3;
+    let viewBoxWidth=1100;
+    let viewBoxHeight=380;
     // console.log(xScaleTicks.indexOf(1))
 </script>
 
 <main>
     <div id="chart">
-        <svg id="svgCharts" viewBox="0 0 1100 400" 
+        <svg id="svgCharts" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">
             <g id="ChartView">
                 <text class="ChartHeading" x={((btw_x2-btw_x1)/2)-y_label_offsetX} y={y_axis_y1-(5*y_label_offsetY)}>Scores through-time(TT)</text>
@@ -83,8 +85,6 @@
     }
     #svgCharts{
         display: flex;
-        width: 100%;
-        height: 100%;
         overflow: hidden;
     }
     #ChartView{
