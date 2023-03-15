@@ -4,7 +4,7 @@
     let y_axis_x2=80;
     let y_axis_y1=50;
     let y_axis_y2=320;
-    let y_diff=(y_axis_y2-y_axis_y1)/21;
+    let y_diff=(y_axis_y2-y_axis_y1)/20;
 
     let btw_x1=80;
     let btw_x2=1100;
@@ -36,10 +36,8 @@
 			.domain([0,1]);
     xScaleTicks=xScaleNew.ticks(21);
     console.log(xScaleTicks);
-    console.log(xScaleTicks.indexOf(1))
-
-
-
+    let xIndex;
+    // console.log(xScaleTicks.indexOf(1))
 </script>
 
 <main>
@@ -54,11 +52,17 @@
                 <line class="axis" x1={arrow3_x1} y1={arrow3_y1} x2={arrow3_x2} y2={arrow3_y2}/>
                 <line class="axis" x1={arrow4_x1} y1={arrow4_y1} x2={arrow4_x2} y2={arrow4_y2}/>
                 {#each xScaleTicks as tk}
-                    <line class="axis" x1={btw_x1} y1={y_axis_y1+(xScaleTicks.indexOf(tk)*y_diff)} x2={btw_x2} y2={y_axis_y1+(xScaleTicks.indexOf(tk)*y_diff)}/>
+                    {xIndex=xScaleTicks.indexOf(tk)}
+                    {#if xIndex%5!=0}
+                        <line class="ThinLine" x1={btw_x1} y1={y_axis_y1+(xIndex*y_diff)} x2={btw_x2} y2={y_axis_y1+(xIndex*y_diff)}/>
+                    {:else if xIndex==10}
+                        <line class="axis" x1={btw_x1} y1={y_axis_y1+(xIndex*y_diff)} x2={btw_x2} y2={y_axis_y1+(xIndex*y_diff)}/>
+                    {:else if xIndex==5||xIndex==15}
+                        <line class="ThinAxis" x1={btw_x1} y1={y_axis_y1+(xIndex*y_diff)} x2={btw_x2} y2={y_axis_y1+(xIndex*y_diff)}/>
+                    {/if}
                 {/each}
             </g>
         </svg>
-
     </div>
 </main>
 
@@ -84,5 +88,13 @@
     .axis{
         stroke: black;
         stroke-width: 2;
+    }
+    .ThinAxis{
+        stroke: black;
+        stroke-width: 1;
+    }
+    .ThinLine{
+        stroke: gray;
+        stroke-width: 0.5;
     }
 </style>
