@@ -1,5 +1,5 @@
 <script>
-	//export let name;
+  import BestToWorst from "./components/BestToWorst.svelte";
 </script>
 
 <main>
@@ -10,7 +10,7 @@
       <div id="GameInstructions">instructions</div>
     </div>
     <div id="explanation">
-      <div id="BestToWorst">BTT</div>
+      <div id="BestToWorst"><BestToWorst /></div>
       <div id="ScoresThroughTime">STT</div>
       <div id="OnTheBoard">OTB</div>
     </div>
