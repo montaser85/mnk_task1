@@ -1,18 +1,49 @@
 <script>
     import { scaleLinear, scaleOrdinal } from "d3-scale";
 
-    let GB_X1=80;
-    let GB_Y1=0;
+    let GB_X1=100;
+    let GB_Y1=50;
+    let boardBoxWidth=50;
+    let boardBoxHeight=50;
 
     let viewBoxWidth=1100;
     let viewBoxHeight=380;
+    let xScaleTicks=[];
+    let xScaleNew;
+    // xScaleNew=scaleLinear()
+	// 		.domain([1,360]);
+    // xScaleTicks=xScaleNew.ticks(35);
+    // console.log(xScaleTicks);
+    // let xIndex;
+    let boxArray=[];
+    let boxNum = 36;
+    let column_num=9;
+    let column_index;
+    let row_index; 
+    boxArray=Array.apply(null, {length: boxNum}).map(Number.call, Number)
+    console.log(boxArray)
+    let i;
+    let box;
+    // for(i=0;i<36;i++){
+    //     box=boxArray[i]
+    //     column_index=box%9
+    //     row_index=(box-(box%9))/9
+    //     console.log("Number: "+box)
+    //     console.log("row: "+row_index)
+    //     console.log("column: "+column_index)
+    // }
 </script>
 <main>
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">
             <g id="BoardView">
-                <rect id="BoardBox" x={GB_X1} y={GB_Y1} width=50 height=50/>
+                {#each boxArray as box}
+                    {column_index=(box%9)}
+                    {row_index=(box-(box%9))/9}
+                    <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
+                {/each}
+                
             </g>
         </svg>
     </div>
@@ -29,7 +60,7 @@
         display: flex;
         overflow: hidden;
     }
-    #BoardBox{
+    .BoardBox{
         fill: none;
         stroke: gray;
         stroke-width: 3px;

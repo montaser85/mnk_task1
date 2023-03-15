@@ -35,7 +35,7 @@
     xScaleNew=scaleLinear()
 			.domain([0,1]);
     xScaleTicks=xScaleNew.ticks(21);
-    console.log(xScaleTicks);
+    //console.log(xScaleTicks);
     let xIndex;
     let y_label_offsetX=45;
     let y_label_offsetY=3;
