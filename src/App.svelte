@@ -1,5 +1,6 @@
 <script>
   import BestToWorst from "./components/BestToWorst.svelte";
+  import ScoresThroughTime from "./components/ScoresThroughTime.svelte";
 </script>
 
 <main>
@@ -38,7 +39,7 @@
         </div>
         <div id="explanation">
             <div id="BestToWorst"><BestToWorst /></div>
-            <div id="ScoresThroughTime">STT</div>
+            <div id="ScoresThroughTime"><ScoresThroughTime /></div>
             <div id="OnTheBoard">OTB</div>
         </div>
     </div>
