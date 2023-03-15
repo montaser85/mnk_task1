@@ -1,1 +1,22 @@
+/* CSS Stylesheet */
 
+/* Resources */
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+/* https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/ */
+
+/* FONTS */
+/* font-family: 'Roboto', sans-serif; */
+/* ------------------------------------------------------------------------------------ */
+/* META/EFFECTS/SYMBOLS --------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------ */
+
+body {
+    margin: 0;
+    background-color: #eff1f3;
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+/* Remove all extra style such as underlining on links */
+a {
+    text-decoration: none;
+}
