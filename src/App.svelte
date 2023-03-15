@@ -42,15 +42,12 @@
             <div id="OnTheBoard">OTB</div>
         </div>
     </div>
-<<<<<<< HEAD
     <div id="explanation">
       <div id="BestToWorst"><BestToWorst /></div>
       <div id="ScoresThroughTime">STT</div>
       <div id="OnTheBoard">OTB</div>
     </div>
   </div>
-=======
->>>>>>> 15458bf6bc790757dd464e1589105522b3292e08
 </main>
 
 <style>
