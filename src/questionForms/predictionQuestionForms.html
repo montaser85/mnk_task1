@@ -3,11 +3,20 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <form>
+    <form method="post">
         <label for="predictWhere">On the game map (above), which square do you think the blue (X) agent will place its next move on?</label><br>
         <input type="text" id="predictWhere" name="predictWhere" size=92><br><br>
         <label for="predictWhy">Why do you think the blue (X) agent will place its move there? (A few sentences, as detailed as possible)</label><br>
         <input type="text" id="predictWhy" name="predictWhy" size=92><br>
         <input type="submit" value="Submit">
     </form>
+
+    <?php
+        $myfile = fopen( "outputs.txt", "w" ) or die( "Unable to open file!" );
+        $txt = "Hello, file";
+        fwrite( $myfile, $txt );
+        fclose( $myfile );
+    ?>
+
 </body>
+

@@ -36,7 +36,8 @@
                 </div>
             </div>
             <div id="GameBoard"><GameBoard /></div>
-            <div id="GameInstructions">instructions</div>
+            <div id="GameInstructions">instructions Is this actually doing anything?<br>
+            <iframe src="questionForms/predictionQuestionForms.html"></iframe></div>
         </div>
         <div id="explanation">
             <div id="BestToWorst"><BestToWorst /></div>
