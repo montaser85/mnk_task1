@@ -1,6 +1,6 @@
 <script>
     import { scaleLinear, scaleOrdinal } from "d3-scale";
-  import { each } from "svelte/internal";
+    import { each } from "svelte/internal";
 
     let GB_X1=180;
     let GB_Y1=0;
