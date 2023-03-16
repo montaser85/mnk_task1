@@ -1,5 +1,20 @@
 {
-    "predict-where": "Which square do you think the blue (X) agent will place its next move on?",
+    "predict-where": "On the game map (above), which square do you think the blue (X) agent will place its next move on?",
     "predict-why": "Why do you think the blue (X) agent will place its move there? (A few sentences, as detailed as possible)",
-    
+    "BTW-explanation-flaw": "From looking at the Best To Worst (BTW) explanation (top-right), do you think there is a flaw in the AI's reasoning? If so, what is that flaw?",
+    "STT-explanation-flaw": "From looking at the Scores Through Time (STT) explanation (middle-right), do you think there is a flaw in the AI's reasoning? If so, what is that flaw?",
+    "OTB-explanation-flaw": "From looking at the On The Board (OTB) explanation (bottom-right), do you think there is a flaw in the AI's reasoning? If so, what is that flaw?",
+    "Who-wins": "Who do you think will win at the END of the game?",
+    "Who-wins-responses": [ "Definitely O", "Maybe O", "Both have an equal chance", "Maybe X", "Definitely X" ],
+    "Description-question": "Please describe the steps in the agent's approach or method. (A few sentences, as detailed as possible.)",
+    "Helpful": "What was helpful about the information given to you? (Wait until the next question to say what was unhelpful.)",
+    "Problematic": "What was problematic about the information given to you?",
+    "Bad-decisions": "Under what circumstances is this agent likely to make bad decisions? (A few sentences, as detailed as possible.",
+    "TLX-Mental": "How mentally demanding was the task?",
+    "TLX-Physical": "How physically demanding was the task?",
+    "TLX-Temporal": "How hurried or rushed was the pace of the task?",
+    "TLX-Performance": "How successful were you in accomplishing what you were asked to do?",
+    "TLX-Effort": "How hard did you have to work to accomplish your level of performance?",
+    "TLX-Frustration": "How insecure, discouraged, irritated, stressed, and annoyed were you? "
+
 }
