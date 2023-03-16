@@ -19,6 +19,7 @@
     let row_names=["1","2","3","4"]
     boxArray=Array.apply(null, {length: boxNum}).map(Number.call, Number)
     let box;
+    let move_num=0;
 </script>
 <main>
     <div id="GameBoard">
@@ -32,44 +33,44 @@
                     <!-- top row -->
                     {#if row_index==0}
                         {#if column_index==0}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight}"
                             />
                         {:else if column_index==8}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight}"
                         />
                         {:else}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight},{boardBoxHeight*2}"
                             />
                         {/if}
                     <!-- bottom row -->
                     {:else if row_index==3}
                         {#if column_index==0}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight}"
                             />
                         {:else if column_index==8}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight}"
                         />
                         {:else}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: {boardBoxHeight*2},{boardBoxHeight}"
                             />
                         {/if}
                     {:else if column_index==0}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         style="stroke-dasharray: {boardBoxHeight*3},{boardBoxHeight}"
                         />
                     {:else if column_index==8}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight},{boardBoxHeight*2}"
                         />
                     <!-- Boxes inside -->
                     {:else}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}/>
                     {/if}
                 {/each}
 
@@ -81,6 +82,23 @@
                 {#each row_names as row_name}
                     <text class="BoardLabels" x={GB_X1-30} y={GB_Y1+(boardBoxHeight/2)+(boardBoxHeight*row_names.indexOf(row_name))}>{row_name}</text>
                 {/each}
+                <!-- adding buttons -->
+                <!-- prior move button -->
+               <g>
+                    <rect class="BoardButton" x={GB_X1+(1.5*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
+                    <text class="ButtonLabels" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Prior Move</text>
+                </g>
+
+                <!-- Next move button  -->
+                <g>
+                    <rect class="BoardButton" x={GB_X1+(6*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
+                    <text class="ButtonLabels" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Next Move</text>
+
+                </g>
+                
+                
+                <text class="BoardLabels" x={GB_X1+(3.6*boardBoxHeight)} y={GB_Y1+(4.6*boardBoxHeight)}>Showing Move: {move_num}</text>
+                <text class="BoardLabels" x={GB_X1+(3.6*boardBoxHeight)} y={GB_Y1+(5.5*boardBoxHeight)}>Who moves next: </text>
             </g>
         </svg>
     </div>
@@ -106,5 +124,16 @@
         font-weight: 500;
         font-size: larger;
     }
+    .ButtonLabels{
+        font-weight: 500;
+        font-size: large;
+        fill: white;
+    }
+    .BoardButton{
+        fill: gray;
+        stroke: black;
+        stroke-width: 2px;
+    }
+
 
 </style>

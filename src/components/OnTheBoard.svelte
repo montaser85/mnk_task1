@@ -32,44 +32,44 @@
                     <!-- top row -->
                     {#if row_index==0}
                         {#if column_index==0}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight}"
                             />
                         {:else if column_index==8}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight*2},{boardBoxHeight}"
                         />
                         {:else}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: 0,{boardBoxHeight},{boardBoxHeight*2}"
                             />
                         {/if}
                     <!-- bottom row -->
                     {:else if row_index==3}
                         {#if column_index==0}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight*2},0"
                             />
                         {:else if column_index==8}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight*2},{boardBoxHeight}"
                         />
                         {:else}
-                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                            <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                             style="stroke-dasharray: {boardBoxHeight*2},{boardBoxHeight}"
                             />
                         {/if}
                     {:else if column_index==0}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         style="stroke-dasharray: {boardBoxHeight*3},{boardBoxHeight}"
                         />
                     {:else if column_index==8}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight},{boardBoxHeight*2}"
                         />
                     <!-- Boxes inside -->
                     {:else}
-                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}/>
                     {/if}
 
                     <!-- drawing the axis line for each box -->
