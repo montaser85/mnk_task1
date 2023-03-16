@@ -1,0 +1,5 @@
+{
+    "predict-where": "Which square do you think the blue (X) agent will place its next move on?",
+    "predict-why": "Why do you think the blue (X) agent will place its move there? (A few sentences, as detailed as possible)",
+    
+}
