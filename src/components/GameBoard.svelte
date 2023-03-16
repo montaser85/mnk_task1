@@ -27,8 +27,9 @@
             <g id="BoardView">
                 {#each boxArray as box}
                     {column_index=(box%9)}
-                    {row_index=(box-(box%9))/9}
-                    <!-- <rect class="BoardBox {row_index}" id="BoardTop" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/> -->
+                    <!-- {row_index=(box-(box%9))/9} -->
+                    {row_index=Math.floor(box/9)}
+                    <!-- top row -->
                     {#if row_index==0}
                         {#if column_index==0}
                             <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
@@ -43,7 +44,7 @@
                             style="stroke-dasharray: 0,{boardBoxHeight},{boardBoxHeight*2}"
                             />
                         {/if}
-
+                    <!-- bottom row -->
                     {:else if row_index==3}
                         {#if column_index==0}
                             <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
@@ -66,6 +67,7 @@
                         <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
                         style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight},{boardBoxHeight*2}"
                         />
+                    <!-- Boxes inside -->
                     {:else}
                         <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
                     {/if}
