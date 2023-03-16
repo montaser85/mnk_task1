@@ -109,6 +109,6 @@
     }
     .ChartHeading{
         font-weight: 500;
-        font-size: larger;
+        font-size: 2em;
     }
 </style>
