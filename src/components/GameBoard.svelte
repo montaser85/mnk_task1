@@ -72,9 +72,13 @@
                             />
                         {/if}
                     {:else if column_index==0}
-                        <rect class="BoardBox" id="BoardBoxLeft" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        style="stroke-dasharray: {boardBoxHeight*3},{boardBoxHeight}"
+                        />
                     {:else if column_index==8}
-                        <rect class="BoardBox" id="BoardBoxRight" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
+                        <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}
+                        style="stroke-dasharray: {boardBoxHeight},{boardBoxHeight},{boardBoxHeight*2}"
+                        />
                     {:else}
                         <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxHeight} height={boardBoxWidth}/>
                     {/if}
@@ -99,30 +103,6 @@
         fill: none;
         stroke: gray;
         stroke-width: 3px;
-    }
-    #BoardBoxLeft{
-        fill: none;
-        stroke: gray;
-        stroke-width: 3px;
-        stroke-dasharray: 240,80;
-    }
-    #BoardBoxRight{
-        fill: none;
-        stroke: gray;
-        stroke-width: 3px;
-        stroke-dasharray: 80,80,160;
-    }
-    #BoardBoxTop{
-        fill: none;
-        stroke: gray;
-        stroke-width: 3px;
-        stroke-dasharray: 0,80,240;
-    }
-    #BoardBoxDown{
-        fill: none;
-        stroke: gray;
-        stroke-width: 3px;
-        stroke-dasharray: 160,80;
     }
 
 </style>
