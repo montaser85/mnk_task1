@@ -2,6 +2,7 @@
   import BestToWorst from "./components/BestToWorst.svelte";
   import ScoresThroughTime from "./components/ScoresThroughTime.svelte";
   import GameBoard from "./components/GameBoard.svelte";
+  import OnTheBoard from "./components/OnTheBoard.svelte";
 </script>
 
 <main>
@@ -41,7 +42,7 @@
         <div id="explanation">
             <div id="BestToWorst"><BestToWorst /></div>
             <div id="ScoresThroughTime"><ScoresThroughTime /></div>
-            <div id="OnTheBoard">OTB</div>
+            <div id="OnTheBoard"><OnTheBoard /></div>
         </div>
     </div>
 </main>
