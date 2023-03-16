@@ -106,7 +106,6 @@
     }
     .y_labels{
         font-weight: 500;
-
     }
     .ChartHeading{
         font-weight: 500;
