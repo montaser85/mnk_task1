@@ -2,6 +2,7 @@
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
     import { onMount } from "svelte";
+    import OnTheBoard,{otb_box_select} from "./components/OnTheBoard.svelte";
 
     let GB_X1=180;
     let GB_Y1=0;
@@ -21,9 +22,9 @@
     boxArray=Array.apply(null, {length: boxNum}).map(Number.call, Number)
     let box;
     let move_num=0;
-    let box_select=null;
+    let box_select;
     let board_id;
-
+    // export let otb_box_select;
 </script>
 <main>
     <div id="GameBoard">
@@ -35,15 +36,13 @@
                     <!-- {row_index=(box-(box%9))/9} -->
                     {row_index=Math.floor(box/9)}
                     {board_id=(row_index*9)+column_index}
-
-                    {console.log(box_select)}
                     <!-- <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                     /> -->
 
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
-                            box_select=box;        
-                            console.log("selected")
+                            box_select=box;
+
                         }}
                         on:mouseleave={()=>{
                             box_select=null;

@@ -20,9 +20,10 @@
     boxArray=Array.apply(null, {length: boxNum}).map(Number.call, Number)
     let box;
     let move_num=0;
-    let box_select=null;
     let board_id;
+    let box_select=null;
 </script>
+
 <main>
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
@@ -35,8 +36,8 @@
                     <!-- top row -->
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
-                            box_select=box;        
-                            console.log("selected")
+                            box_select=box;
+                            // gb_box_select=box;        
                         }}
                         on:mouseleave={()=>{
                             box_select=null;
@@ -73,7 +74,7 @@
     </div>
 </main>
 <style>
- #GameBoard{
+    #GameBoard{
         display: flex;
         width: 100%;
         height: 100%;
