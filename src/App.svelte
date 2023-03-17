@@ -29,7 +29,7 @@
 
         width: 90%;
         /* min-height: 600px; */
-        height: 94vh;
+        height: 92vh;
         border-style: solid;
         border-width: 1px;
         border-color: black;

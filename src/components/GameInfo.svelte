@@ -37,7 +37,7 @@
         padding: 0%;
     }
 
-    .XShape .material-symbols-outlined{
+    .XShape .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 
         position: relative;
@@ -50,7 +50,7 @@
         font-weight: 900;
     }
 
-    .OShape .material-symbols-outlined{
+    .OShape .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 200, "opsz" 48;
 
         position: relative;

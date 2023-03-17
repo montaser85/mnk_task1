@@ -27,7 +27,7 @@
 </script>
 <main>
     <div id="GameBoard">
-        <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
+        <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
         preserveAspectRatio="xMinYMid meet">
             <g id="BoardView">
                 {#each boxArray as box}
@@ -42,7 +42,7 @@
 
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
-                            box_select=box;        
+                            box_select=box;
                             console.log("selected")
                         }}
                         on:mouseleave={()=>{
@@ -67,22 +67,23 @@
                     {/if}
                 {/each}
 
-           
-
                 <!-- adding buttons -->
                 <!-- prior move button -->
-               <g>
+                <g>
                     <rect class="BoardButton" x={GB_X1+(1.5*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
                     <text class="ButtonLabels" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Prior Move</text>
-                    <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/>
-                <!-- Next move button  -->
+                    <!-- <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/> -->
+                    <image class="imagebox" x={GB_X1+10+(1.7*boardBoxHeight)} y={GB_Y1+25+(4.2*boardBoxHeight)} width=60 height=40 href="static/images/arrow_back.png" alt=""/>
+                </g>
                 <g>
+                    <!-- Next move button  -->
                     <rect class="BoardButton" x={GB_X1+(6*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
                     <text class="ButtonLabels" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Next Move</text>
-                    <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/>
+                    <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
+                    <image class="imagebox" x={GB_X1+10+(6.2*boardBoxHeight)} y={GB_Y1+25+(4.2*boardBoxHeight)} width=60 height=40 href="static/images/arrow_for.png" alt=""/>
                 </g>
-                
-                
+
+
                 <text class="BoardLabels" x={GB_X1+(3.6*boardBoxHeight)} y={GB_Y1+(4.6*boardBoxHeight)}>Showing Move: {move_num}</text>
                 <text class="BoardLabels" x={GB_X1+(3.1*boardBoxHeight)} y={GB_Y1+(5.25*boardBoxHeight)}>Who moves next: </text>
             </g>
@@ -95,14 +96,14 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        
+
     }
     #svgBoard{
         display: flex;
         overflow: hidden;
     }
     .BoardBox{
-        fill: yellow;
+        fill: #FFE600;
         /* stroke: gray;
         stroke-width: 1px; */
     }
@@ -116,18 +117,9 @@
         fill: black;
     }
     .BoardButton{
-        fill: gray;
-        stroke: black;
-        stroke-width: 2px;
-    }
- 
-    .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-    
+        fill: #E1E1E1;
+        stroke: #6F6F6F;
+        stroke-width: 4px;
     }
     .BlackFont{
         color: black;
