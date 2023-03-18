@@ -1,7 +1,7 @@
 <script>
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
-
+    import {box_select_store} from "../store.js";
     let GB_X1=230;
     let GB_Y1=30;
     let boardBoxWidth=70;
@@ -21,7 +21,16 @@
     let box;
     let move_num=0;
     let board_id;
-    let box_select=null;
+    let box_select;
+    box_select_store.subscribe((data) => {
+         box_select = data
+    })
+    function box_update(box){
+        box_select_store.update(n => box);
+    }
+    function box_reupdate(){
+        box_select_store.set(null);
+    }
 </script>
 
 <main>
@@ -36,11 +45,11 @@
                     <!-- top row -->
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
-                            box_select=box;
-                            // gb_box_select=box;        
+                            box_update(box);
+
                         }}
                         on:mouseleave={()=>{
-                            box_select=null;
+                            box_reupdate();
                         }}
                     />
                 {/each}

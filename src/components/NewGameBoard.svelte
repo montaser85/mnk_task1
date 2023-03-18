@@ -2,8 +2,8 @@
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
     import { onMount } from "svelte";
-    import OnTheBoard,{otb_box_select} from "./components/OnTheBoard.svelte";
-
+    // import OnTheBoard from "./components/OnTheBoard.svelte";
+    import {box_select_store} from "../store.js";
     let GB_X1=180;
     let GB_Y1=0;
     let boardBoxWidth=80;
@@ -24,9 +24,29 @@
     let move_num=0;
     let box_select;
     let board_id;
-    // export let otb_box_select;
+    box_select_store.subscribe((data) => {
+         box_select = data
+    })
+
+    function box_update(box){
+        box_select_store.update(n => box);
+    }
+    function box_reupdate(){
+        box_select_store.set(null);
+    }
+    console.log(box_select)
 </script>
 <main>
+    <!-- <div class="book-list">
+        {#each selection as item (item.id)}
+        <div>
+            {console.log(item)}
+        </div>
+        {/each}
+    </div> -->
+    <div>
+        counter value: {$box_select_store}
+       </div>
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">
@@ -41,11 +61,11 @@
 
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
-                            box_select=box;
+                            box_update(box);
 
                         }}
                         on:mouseleave={()=>{
-                            box_select=null;
+                            box_reupdate();
                         }}
                     />
                 {/each}
@@ -151,6 +171,11 @@
     .GridLine{
         stroke: gray;
         stroke-width: 3px;
+    }
+    .book-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
     }
 
 </style>
