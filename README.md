@@ -5,18 +5,21 @@ A web-based prototype for a Tic-Tac-Toe (MNK) game that simulates AI agent decis
 1. Clone the repository
 2. Set remote origin
 3. Set up node
-**NOTE:** Using Google API for fonts and icons [API](https://fonts.google.com/?icon.style=Rounded&icon.platform=web)
 4. Note that if your local machine does not have svelte installed, use the command: git clone https://github.com/sveltejs/svelte.git
+   + this is good if `npm install` fails to install dependencies
+
+**NOTE:** Using Google API for fonts and icons [API](https://fonts.google.com/?icon.style=Rounded&icon.platform=web)
 
 This project uses Node (v>8), run below to install all dependencies:
 ```
 npm install
 ```
+
 To launch in dev mode run (live server reload):
 ```
 npm run dev
 ```
-To launch in regular mode:
+To launch in regular mode (compile first!):
 ```
 npm run start
 ```
@@ -26,15 +29,17 @@ npm run start
 + [Svelte official tutorial](https://svelte.dev/tutorial/basics)
 
 ### Code Guidelines
-+ Keep font sizes somewhat dynamic with `em` or `font-size: calc(100%+1vw);`
-    + `em` is a CSS unit that is based on the current element's font-size (nice for margins)
-    + [Dynamic Font Size](https://stackoverflow.com/questions/14431411/pure-css-to-make-font-size-responsive-based-on-dynamic-amount-of-characters)
 + Variable naming convention is PascalCase (e.g., VariableName)
++ Keep element sizes and margins/position dynamic-ish with `em` or `#%` (takes up % of space allowable)
+    + `em` is a CSS unit that is based on the current element's font-size (nice for margins)
++ To make the `em` also dynamic on the font itself do something like `font-size: calc(100%+1vw);`
+    + `font-size: calc(100% + 1vw);` => `font-size: calc(<baseline>% + <growth>vw);`
+    + [Dynamic Font Size](https://stackoverflow.com/questions/14431411/pure-css-to-make-font-size-responsive-based-on-dynamic-amount-of-characters)
 
 ## FAQ + VS-Code Tricks
-+ ctrl+/to comment and comment out lines (cmd+/)
-+ alt+up/down arrow key to move code lines (option+up/down arrow key)
-+ F2 for smart scope renaming of functions and variables
++ `ctrl+/` and click on a line or highlight multiple to comment and comment out lines (`cmd+/`)
++ `alt+up/down` arrow key to move code lines up or down (`option+up/down` arrow key)
++ F2 for smarter renaming of functions and variables (considers scope and multiple files)
 
 ## Additional Resources
 + [README formating how-to](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)

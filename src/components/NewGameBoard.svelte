@@ -39,7 +39,7 @@
         counter value: {$box_select_store}
     </div> -->
     <div id="GameBoard">
-        <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
+        <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
         preserveAspectRatio="xMinYMid meet">
             <g id="BoardView">
                 {#each boxArray as box}
@@ -49,8 +49,13 @@
                     {board_id=(row_index*9)+column_index}
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
+<<<<<<< HEAD
                             box_update(box);
 
+=======
+                            box_select=box;
+                            console.log("selected")
+>>>>>>> c8309e2386903c9cbedb3bc9bd13ff2e7ceb69fe
                         }}
                         on:mouseleave={()=>{
                             box_reupdate();
@@ -72,20 +77,32 @@
                         <line class="GridLine" x1={GB_X1+(column_names.indexOf(column_name)*boardBoxWidth)} x2={GB_X1+(column_names.indexOf(column_name)*boardBoxWidth)} y1={GB_Y1} y2={GB_Y1+(4*boardBoxHeight)}/>
                     {/if}
                 {/each}
+<<<<<<< HEAD
+=======
+
+>>>>>>> c8309e2386903c9cbedb3bc9bd13ff2e7ceb69fe
                 <!-- adding buttons -->
                 <!-- prior move button -->
-               <g>
+                <g>
                     <rect class="BoardButton" x={GB_X1+(1.5*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
                     <text class="ButtonLabels" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Prior Move</text>
-                    <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/>
-                <!-- Next move button  -->
+                    <!-- <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/> -->
+                    <image class="imagebox" x={GB_X1+10+(1.7*boardBoxHeight)} y={GB_Y1+25+(4.2*boardBoxHeight)} width=60 height=40 href="static/images/arrow_back.png" alt=""/>
+                </g>
                 <g>
+                    <!-- Next move button  -->
                     <rect class="BoardButton" x={GB_X1+(6*boardBoxHeight)} y={GB_Y1+(4.2*boardBoxHeight)} rx="10" ry="10" width={boardBoxWidth*1.5} height={boardBoxHeight*0.8}/>
                     <text class="ButtonLabels" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+(4.5*boardBoxHeight)}>Next Move</text>
-                    <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/>
+                    <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
+                    <image class="imagebox" x={GB_X1+10+(6.2*boardBoxHeight)} y={GB_Y1+25+(4.2*boardBoxHeight)} width=60 height=40 href="static/images/arrow_for.png" alt=""/>
                 </g>
+<<<<<<< HEAD
                 
                 <!-- adding text of the board -->
+=======
+
+
+>>>>>>> c8309e2386903c9cbedb3bc9bd13ff2e7ceb69fe
                 <text class="BoardLabels" x={GB_X1+(3.6*boardBoxHeight)} y={GB_Y1+(4.6*boardBoxHeight)}>Showing Move: {move_num}</text>
                 <text class="BoardLabels" x={GB_X1+(3.1*boardBoxHeight)} y={GB_Y1+(5.25*boardBoxHeight)}>Who moves next: </text>
             </g>
@@ -98,14 +115,14 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        
+
     }
     #svgBoard{
         display: flex;
         overflow: hidden;
     }
     .BoardBox{
-        fill: yellow;
+        fill: #FFE600;
         /* stroke: gray;
         stroke-width: 1px; */
     }
@@ -119,18 +136,9 @@
         fill: black;
     }
     .BoardButton{
-        fill: gray;
-        stroke: black;
-        stroke-width: 2px;
-    }
- 
-    .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-    
+        fill: #E1E1E1;
+        stroke: #6F6F6F;
+        stroke-width: 4px;
     }
     .BlackFont{
         color: black;
