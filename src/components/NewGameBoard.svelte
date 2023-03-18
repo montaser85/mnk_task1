@@ -2,7 +2,6 @@
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
     import { onMount } from "svelte";
-    // import OnTheBoard from "./components/OnTheBoard.svelte";
     import {box_select_store} from "../store.js";
     let GB_X1=180;
     let GB_Y1=0;
@@ -27,7 +26,6 @@
     box_select_store.subscribe((data) => {
          box_select = data
     })
-
     function box_update(box){
         box_select_store.update(n => box);
     }
@@ -36,17 +34,10 @@
     }
     console.log(box_select)
 </script>
-<main>
-    <!-- <div class="book-list">
-        {#each selection as item (item.id)}
-        <div>
-            {console.log(item)}
-        </div>
-        {/each}
-    </div> -->
-    <div>
+<!-- <main> -->
+    <!-- <div>
         counter value: {$box_select_store}
-       </div>
+    </div> -->
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">
@@ -56,9 +47,6 @@
                     <!-- {row_index=(box-(box%9))/9} -->
                     {row_index=Math.floor(box/9)}
                     {board_id=(row_index*9)+column_index}
-                    <!-- <rect class="BoardBox" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
-                    /> -->
-
                     <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
                             box_update(box);
@@ -69,7 +57,6 @@
                         }}
                     />
                 {/each}
-
                 <!-- drawing the gridlines of the baord -->
                 <!-- row lines and labels -->
                 {#each row_names as row_name}
@@ -85,9 +72,6 @@
                         <line class="GridLine" x1={GB_X1+(column_names.indexOf(column_name)*boardBoxWidth)} x2={GB_X1+(column_names.indexOf(column_name)*boardBoxWidth)} y1={GB_Y1} y2={GB_Y1+(4*boardBoxHeight)}/>
                     {/if}
                 {/each}
-
-           
-
                 <!-- adding buttons -->
                 <!-- prior move button -->
                <g>
@@ -101,13 +85,13 @@
                     <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/>
                 </g>
                 
-                
+                <!-- adding text of the board -->
                 <text class="BoardLabels" x={GB_X1+(3.6*boardBoxHeight)} y={GB_Y1+(4.6*boardBoxHeight)}>Showing Move: {move_num}</text>
                 <text class="BoardLabels" x={GB_X1+(3.1*boardBoxHeight)} y={GB_Y1+(5.25*boardBoxHeight)}>Who moves next: </text>
             </g>
         </svg>
     </div>
-</main>
+<!-- </main> -->
 <style>
     #GameBoard{
         display: flex;
@@ -170,12 +154,7 @@
     }
     .GridLine{
         stroke: gray;
-        stroke-width: 3px;
-    }
-    .book-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 20px;
+        stroke-width: 4px;
     }
 
 </style>
