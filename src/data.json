@@ -1,5 +1,5 @@
 {
-    "board_data":[{
+    "board-data":[{
     "goes-first": "X",
     "x-moves": ["E1","F2","G2","E2","D2"],
     "o-moves": ["D4","F3","D3","F1"],
