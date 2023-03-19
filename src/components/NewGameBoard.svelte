@@ -20,6 +20,7 @@
   let viewBoxHeight = 380;
   let xScaleTicks = [];
   let xScaleNew;
+  let symbolName;
   let boxArray = [];
   let boxNum = 36;
   let column_num = 9;
@@ -29,11 +30,12 @@
   let row_names = ["1", "2", "3", "4"];
   boxArray = Array.apply(null, { length: boxNum }).map(Number.call, Number);
   let box;
-  let move_num;
+  let move_num=0;
   let box_select;
   let board_id;
   let board_components = [];
   let max_move = 9;
+  let move_next=goes_first;
   let goes_first_array = [];
   let goes_second_array = [];
   let box_list = [
@@ -106,11 +108,49 @@
   function move_increment() {
     move_number.update((n) => n + 1);
     BoxElementUpdate(move_num);
+    next_move_update(move_num);
   }
   function move_decrement() {
     move_number.update((n) => n - 1);
     BoxElementUpdate(move_num);
+    next_move_update(move_num);
   }
+
+  function next_move_update(move_num){
+    if (goes_first=="X"){
+        if (move_num%2==0){
+            move_next="X";
+        }
+        else{
+            move_next="O";
+        }          
+    }
+    else{
+        if (move_num%2==0){
+            move_next="O";
+        }
+        else{
+            move_next="X";
+        }
+    }
+  }
+  let symbol;
+  function SymbolName(box){
+    console.log(first_moves);
+    if((goes_first == "X") & first_moves.includes(box_list[box])){
+        symbol="X";
+    }
+    else if((goes_first == "O") & first_moves.includes(box_list[box])){
+        symbol="O";
+    }
+    else if((goes_first == "X") & second_moves.includes(box_list[box])){
+        symbol="O";
+    }
+    else if((goes_first == "O") & second_moves.includes(box_list[box])){
+        symbol="X"; 
+    }
+    return symbol;
+}
 
   let i = 0;
   function BoxElementUpdate(move_num) {
@@ -180,55 +220,19 @@
             width={boardBoxWidth}
             height={boardBoxHeight}
           />
-          {#if (goes_first == "X") & first_moves.includes(box_list[box])}
+        {#if (move_num>0 & (first_moves.includes(box_list[box])||second_moves.includes(box_list[box])))}
             {(column_index = box % 9)}
             {(row_index = Math.floor(box / 9))}
             <image
-              class="XSymbol"
-              x={GB_X1 + column_index * boardBoxHeight}
-              y={GB_Y1 + row_index * boardBoxHeight}
-              width={boardBoxWidth}
-              height={boardBoxHeight}
-              href="static/images/blueClose.png"
-              alt=""
-            />
-          {:else if (goes_first == "Y") & first_moves.includes(box_list[box])}
-            {(column_index = box % 9)}
-            {(row_index = Math.floor(box / 9))}
-            <image
-              class="OSymbol"
-              x={GB_X1 + column_index * boardBoxHeight}
-              y={GB_Y1 + row_index * boardBoxHeight}
-              width={boardBoxWidth}
-              height={boardBoxHeight}
-              href="static/images/redCircle.png"
-              alt=""
-            />
-          {:else if (goes_first == "X") & second_moves.includes(box_list[box])}
-            {(column_index = box % 9)}
-            {(row_index = Math.floor(box / 9))}
-            <image
-              class="OSymbol"
-              x={GB_X1 + column_index * boardBoxHeight}
-              y={GB_Y1 + row_index * boardBoxHeight}
-              width={boardBoxWidth}
-              height={boardBoxHeight}
-              href="static/images/redCircle.png"
-              alt=""
-            />
-          {:else if (goes_first == "Y") & second_moves.includes(box_list[box])}
-            {(column_index = box % 9)}
-            {(row_index = Math.floor(box / 9))}
-            <image
-              class="XSymbol"
-              x={GB_X1 + column_index * boardBoxHeight}
-              y={GB_Y1 + row_index * boardBoxHeight}
-              width={boardBoxWidth}
-              height={boardBoxHeight}
-              href="static/images/blueClose.png"
-              alt=""
-            />
-          {/if}
+                class="XSymbol"
+                x={GB_X1 + column_index * boardBoxHeight}
+                y={GB_Y1 + row_index * boardBoxHeight}
+                width={boardBoxWidth}
+                height={boardBoxHeight}
+                href="static/images/{SymbolName(box)}.png"
+                alt=""
+                />
+        {/if}
         </g>
       {/each}
       <!-- drawing the gridlines of the baord -->
@@ -322,8 +326,8 @@
         <!-- Next move button  -->
         <rect
           class="BoardButton"
-          x={GB_X1 + 6 * boardBoxHeight}
-          y={GB_Y1 + 4.2 * boardBoxHeight}
+          x={GB_X1 + (6 * boardBoxHeight)}
+          y={GB_Y1 + (4.2 * boardBoxHeight)}
           rx="10"
           ry="10"
           width={boardBoxWidth * 1.5}
@@ -331,14 +335,14 @@
         />
         <text
           class="ButtonLabels"
-          x={GB_X1 + 6.2 * boardBoxHeight}
-          y={GB_Y1 + 4.5 * boardBoxHeight}>Next Move</text
+          x={GB_X1 + (6.2 * boardBoxHeight)}
+          y={GB_Y1 + (4.5 * boardBoxHeight)}>Next Move</text
         >
         <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
         <image
           class="imagebox"
-          x={GB_X1 + 10 + 6.2 * boardBoxHeight}
-          y={GB_Y1 + 25 + 4.2 * boardBoxHeight}
+          x={GB_X1 + 10 + (6.2 * boardBoxHeight)}
+          y={GB_Y1 + 25 + (4.2 * boardBoxHeight)}
           width="60"
           height="40"
           href="static/images/arrow_for.png"
@@ -354,10 +358,18 @@
       >
       <text
         class="BoardLabels"
-        x={GB_X1 + 3.1 * boardBoxHeight}
-        y={GB_Y1 + 5.25 * boardBoxHeight}
+        x={GB_X1 + (3.1 * boardBoxHeight)}
+        y={GB_Y1 + (5.25 * boardBoxHeight)}
         >Who moves next:
       </text>
+      <rect
+          class="NextMoveHolder"
+          x={GB_X1+(5*boardBoxHeight)}
+          y={GB_Y1 + (5* boardBoxHeight)}
+          width=40
+          height=27
+        />
+      <image class="imagebox" x={GB_X1+(5*boardBoxHeight)+4} y={GB_Y1 + (5* boardBoxHeight)-2} width=30 height=30 href="static/images/{move_next}.png" alt=""/>
     </g>
   </svg>
 </div>
@@ -393,20 +405,12 @@
     stroke: #6f6f6f;
     stroke-width: 4px;
   }
-  .BlackFont {
-    color: black;
-  }
   image.imagebox {
     opacity: 1;
   }
 
   image.XSymbol {
     opacity: 1;
-    color: blue;
-  }
-  image.OSymbol {
-    opacity: 1;
-    color: red;
   }
   g.this-box-not-selected {
     fill: white;
@@ -425,5 +429,10 @@
   .GridLine {
     stroke: gray;
     stroke-width: 4px;
+  }
+  .NextMoveHolder{
+    fill: white;
+    stroke: black;
+    stroke-width: 0.5px;
   }
 </style>

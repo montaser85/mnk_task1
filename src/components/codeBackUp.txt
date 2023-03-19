@@ -1,0 +1,53 @@
+Symbol Boxes on the GameBoard Logic:
+
+ 
+
+          {#if (goes_first == "X") & first_moves.includes(box_list[box])}
+            {(column_index = box % 9)}
+            {(row_index = Math.floor(box / 9))}
+            <image
+              class="XSymbol"
+              x={GB_X1 + column_index * boardBoxHeight}
+              y={GB_Y1 + row_index * boardBoxHeight}
+              width={boardBoxWidth}
+              height={boardBoxHeight}
+              href="static/images/X.png"
+              alt=""
+            />
+          {:else if (goes_first == "Y") & first_moves.includes(box_list[box])}
+            {(column_index = box % 9)}
+            {(row_index = Math.floor(box / 9))}
+            <image
+              class="OSymbol"
+              x={GB_X1 + column_index * boardBoxHeight}
+              y={GB_Y1 + row_index * boardBoxHeight}
+              width={boardBoxWidth}
+              height={boardBoxHeight}
+              href="static/images/O.png"
+              alt=""
+            />
+          {:else if (goes_first == "X") & second_moves.includes(box_list[box])}
+            {(column_index = box % 9)}
+            {(row_index = Math.floor(box / 9))}
+            <image
+              class="OSymbol"
+              x={GB_X1 + column_index * boardBoxHeight}
+              y={GB_Y1 + row_index * boardBoxHeight}
+              width={boardBoxWidth}
+              height={boardBoxHeight}
+              href="static/images/O.png"
+              alt=""
+            />
+          {:else if (goes_first == "Y") & second_moves.includes(box_list[box])}
+            {(column_index = box % 9)}
+            {(row_index = Math.floor(box / 9))}
+            <image
+              class="XSymbol"
+              x={GB_X1 + column_index * boardBoxHeight}
+              y={GB_Y1 + row_index * boardBoxHeight}
+              width={boardBoxWidth}
+              height={boardBoxHeight}
+              href="static/images/X.png"
+              alt=""
+            />
+          {/if}
