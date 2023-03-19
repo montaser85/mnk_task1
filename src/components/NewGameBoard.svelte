@@ -370,7 +370,7 @@
         {/each}
         <!-- adding buttons -->
         <!-- prior move button -->
-        <g
+        <g class="BoardButton {move_num>0? "clickable":"not-clickable"}"
           on:click={() => {
             if (move_num >= 1) {
               move_decrement();
@@ -383,22 +383,21 @@
           }}
         >
           <rect
-            class="BoardButton"
             x={GB_X1 + 1.5 * boardBoxHeight}
             y={GB_Y1 + 4.2 * boardBoxHeight}
             rx="10"
             ry="10"
-            width={boardBoxWidth * 1.5}
+            width={boardBoxWidth * 1.6}
             height={boardBoxHeight * 0.8}
           />
           <text
-            class="ButtonLabels"
-            x={GB_X1 + 1.7 * boardBoxHeight}
-            y={GB_Y1 + 4.5 * boardBoxHeight}>Prior Move</text
+            class="ButtonLabels {move_num>0? "clickable":"not-clickable"}"
+            x={GB_X1 + (1.7 * boardBoxHeight)-10}
+            y={GB_Y1 + (4.5 * boardBoxHeight)}>Prior Move</text
           >
           <!-- <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/> -->
           <image
-            class="imagebox"
+            class="imagebox {move_num>0 ? "clickable":"not-clickable"}"
             x={GB_X1 + 10 + 1.7 * boardBoxHeight}
             y={GB_Y1 + 25 + 4.2 * boardBoxHeight}
             width="60"
@@ -407,49 +406,50 @@
             alt=""
           />
         </g>
-        <g
-          on:click={() => {
-            if (move_num < max_move) {
-              move_increment();
-            }
-          }}
-          on:keypress={() => {
-            if (move_num <= max_move) {
-              move_increment();
-            }
-          }}
-        >
+
           <!-- Next move button  -->
-          <rect
-            class="BoardButton"
-            x={GB_X1 + 6 * boardBoxHeight}
-            y={GB_Y1 + 4.2 * boardBoxHeight}
-            rx="10"
-            ry="10"
-            width={boardBoxWidth * 1.5}
-            height={boardBoxHeight * 0.8}
-          />
-          <text
-            class="ButtonLabels"
-            x={GB_X1 + 6.2 * boardBoxHeight}
-            y={GB_Y1 + 4.5 * boardBoxHeight}>Next Move</text
-          >
-          <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
-          <image
-            class="imagebox"
-            x={GB_X1 + 10 + 6.2 * boardBoxHeight}
-            y={GB_Y1 + 25 + 4.2 * boardBoxHeight}
-            width="60"
-            height="40"
-            href="static/images/arrow_for.png"
-            alt=""
-          />
+        <g class="BoardButton {move_num<max_move? "clickable":"not-clickable"}"
+            on:click={() => {
+                if (move_num < max_move) {
+                move_increment();
+                }
+            }}
+            on:keypress={() => {
+                if (move_num <= max_move) {
+                move_increment();
+                }
+            }}
+            >
+            <rect
+                x={GB_X1 + 6.2 * boardBoxHeight}
+                y={GB_Y1 + 4.2 * boardBoxHeight}
+                rx="10"
+                ry="10"
+                width={boardBoxWidth * 1.6}
+                height={boardBoxHeight * 0.8}
+            />
+            <text
+                class="ButtonLabels {move_num<max_move? "clickable":"not-clickable"}"
+                x={GB_X1 + (6.2 * boardBoxHeight)+6}
+                y={GB_Y1 + (4.5 * boardBoxHeight)}>Next Move</text
+            >
+            <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
+            <image
+                class="imagebox {move_num<max_move? "clickable":"not-clickable"}"
+                x={GB_X1 + 35 + (6.2 * boardBoxHeight)}
+                y={GB_Y1 + 25 + (4.2 * boardBoxHeight)}
+                width="60"
+                height="40"
+                href="static/images/arrow_for.png"
+                alt=""
+            />
         </g>
+
 
         <!-- adding text of the board -->
         <text
           class="BoardLabels"
-          x={GB_X1 + 3.6 * boardBoxHeight}
+          x={GB_X1 + 3.4 * boardBoxHeight}
           y={GB_Y1 + 4.6 * boardBoxHeight}>Showing Move: {move_num}</text
         >
         <text
@@ -460,15 +460,15 @@
         </text>
         <rect
           class="NextMoveHolder"
-          x={GB_X1 + 5 * boardBoxHeight}
-          y={GB_Y1 + 5 * boardBoxHeight}
+          x={GB_X1+35 + (5 * boardBoxHeight)}
+          y={GB_Y1 + (5 * boardBoxHeight)}
           width="40"
           height="27"
         />
         <image
           class="imagebox"
-          x={GB_X1 + 5 * boardBoxHeight + 4}
-          y={GB_Y1 + 5 * boardBoxHeight - 2}
+          x={GB_X1 + (5 * boardBoxHeight) + 40}
+          y={GB_Y1 + (5 * boardBoxHeight) - 2}
           width="30"
           height="30"
           href="static/images/{move_next}.png"
@@ -497,14 +497,35 @@
   }
   .BoardLabels {
     font-weight: 500;
-    font-size: larger;
+    font-size: x-large;
   }
-  .ButtonLabels {
+  .ButtonLabels.clickable {
     font-weight: 500;
-    font-size: large;
+    font-size: x-large;
     fill: black;
+    stroke: black;
+    stroke-width: 1px;
   }
-  .BoardButton {
+  .ButtonLabels.not-clickable {
+    font-weight: 500;
+    font-size: x-large;
+    fill: rgb(87, 87, 87);
+    stroke: rgb(87, 87, 87);
+    stroke-width: 1px;
+  }
+  /* .BoardButton {
+    fill: #e1e1e1;
+    stroke: #6f6f6f;
+    stroke-width: 4px;
+    cursor: pointer;
+  } */
+  .BoardButton.clickable {
+    fill: #e1e1e1;
+    stroke: #6f6f6f;
+    stroke-width: 4px;
+    cursor: pointer;
+  }
+  .BoardButton.not-clickable {
     fill: #e1e1e1;
     stroke: #6f6f6f;
     stroke-width: 4px;
@@ -514,8 +535,11 @@
     font-size: larger;
     fill: black;
   }
-  image.imagebox {
+  image.imagebox.clickable {
     opacity: 1;
+  }
+  image.imagebox.not-clickable {
+    opacity: 0.5;
   }
 
   image.XSymbol {
