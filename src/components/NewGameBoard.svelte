@@ -454,20 +454,20 @@
         >
         <text
           class="BoardLabels"
-          x={GB_X1 + 3.1 * boardBoxHeight}
+          x={GB_X1 + 3.2 * boardBoxHeight}
           y={GB_Y1 + 5.25 * boardBoxHeight}
           >Who moves next:
         </text>
         <rect
           class="NextMoveHolder"
-          x={GB_X1+35 + (5 * boardBoxHeight)}
+          x={GB_X1+45 + (5 * boardBoxHeight)}
           y={GB_Y1 + (5 * boardBoxHeight)}
           width="40"
           height="27"
         />
         <image
           class="imagebox"
-          x={GB_X1 + (5 * boardBoxHeight) + 40}
+          x={GB_X1 + (5 * boardBoxHeight) + 50}
           y={GB_Y1 + (5 * boardBoxHeight) - 2}
           width="30"
           height="30"
