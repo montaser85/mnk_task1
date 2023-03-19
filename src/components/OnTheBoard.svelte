@@ -1,7 +1,7 @@
 <script>
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
-    import {box_select_store} from "../store.js";
+    import {box_select_store,updated_first_array,updated_second_array} from "../store.js";
     let GB_X1=230;
     let GB_Y1=30;
     let boardBoxWidth=70;
@@ -22,21 +22,31 @@
     let move_num=0;
     let board_id;
     let box_select;
+    let first_array=[];
+    let second_array=[];
+
     box_select_store.subscribe((data) => {
-         box_select = data
-    })
+         box_select = data;
+    });
     function box_update(box){
         box_select_store.update(n => box);
     }
     function box_reupdate(){
         box_select_store.set(null);
     }
+    updated_first_array.subscribe((data) => {
+         first_array = data;
+    });
+    updated_second_array.subscribe((data) => {
+         second_array = data;
+    });
+
 </script>
 
 <main>
-    <!-- <div>
-        counter value: {$box_select_store}
-       </div> -->
+    <div>
+        counter value: {$updated_first_array}
+    </div>
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">

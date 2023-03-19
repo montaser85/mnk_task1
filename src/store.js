@@ -9,10 +9,16 @@ let first_array=[];
 let second_array=[];
 let goes_first=[];
 
+
+let updated_first_array=writable([]);
+let updated_second_array=writable([]);
+
 export {box_select_store}
 export {move_number}
 export {first_array}
 export {second_array}
+export {updated_first_array}
+export {updated_second_array}
 export {goes_first}
 
 // onMount(async () => {

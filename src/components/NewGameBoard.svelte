@@ -2,7 +2,7 @@
     import { scaleLinear, scaleOrdinal } from "d3-scale";
     import { each } from "svelte/internal";
     import { onMount } from "svelte";
-    import {box_select_store, move_number, first_array, second_array, goes_first} from "../store.js";
+    import {box_select_store, move_number, first_array, second_array, goes_first, updated_first_array, updated_second_array} from "../store.js";
     //import pred_data from "../prediction_results.json";
     let GB_X1=180;
     let GB_Y1=0;
@@ -28,6 +28,16 @@
     let max_move=9;
     let goes_first_array=[];
     let goes_second_array=[];
+    let box_list=["A1","B1","C1","D1","E1","F1","G1","H1","I1","A2","B2","C2","D2","E2","F2","G2","H2","I2",
+"A3","B3","C3","D3","E3","F3","G3","H3","I3","A4","B4","C4","D4","E4","F4","G4","H4","I4",]
+    let first_moves=[];
+    let second_moves=[];
+    // $:{
+    //     for (i=0;i<goes_first_array.length;i++){}
+    // };
+    $:first_moves=JSON.stringify(goes_first_array);
+    $:second_moves=JSON.stringify(goes_second_array);
+
     box_select_store.subscribe((data) => {
          box_select = data
     })
@@ -38,9 +48,18 @@
         box_select_store.set(null);
     }
 
+
+    updated_first_array.subscribe((data) => {
+         goes_first_array = data;
+    });
+    updated_second_array.subscribe((data) => {
+         goes_second_array = data;
+    });
+
     move_number.subscribe((data) => {
          move_num = data
-    })
+    });
+
     function move_increment(){
         move_number.update(n =>n+1 );
         BoxElementUpdate(move_num);
@@ -56,10 +75,7 @@
         let second_array_i=0;
         goes_first_array=[];
         goes_second_array=[];
-        console.log(move_num)
-        //goes_first_array.push(move_number);
         if(move_num>0){
-            
             for (i=1;i<=move_num;i++){
                 if(i%2==1){
                     goes_first_array.push(first_array[first_array_i]);
@@ -72,30 +88,25 @@
                 }
             }
         }
-        console.log(goes_first_array);
-        console.log(goes_second_array);
+        updated_first_array.update(items => {
+            items=[];
+            return [goes_first_array, ...items];
+        });
+
+        updated_second_array.update(items => {
+            items=[];
+            return [goes_second_array, ...items];
+        });
     }
-
     // console.log(first_array);
-    // onMount(async () => {
-    //     const fetched=await fetch("../data.json");
-    //     instances = (await fetched.json()).board-data;
-    //     console.log(instances);
-    // });
-
-    // onMount(async () => {
-	// 	const fetched = await fetch('../static/data/data.json');
-	// 	const inst = (await fetched.json()).board_data;
-    //     instances=inst;
-    //     console.log(instances);
-
-
-	// });
-    
+    //console.log(goes_first_array);
 </script>
 <!-- <main> -->
     <div>
-        counter value: {goes_first_array}
+        <!-- counter value: {goes_first_array} -->
+        <!-- {console.log(first_moves.length)}
+        {console.log(first_moves)}
+        {console.log(first_moves.includes("E1"))} -->
     </div>
     <div id="GameBoard">
         <svg id="svgBoard" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
@@ -106,7 +117,8 @@
                     <!-- {row_index=(box-(box%9))/9} -->
                     {row_index=Math.floor(box/9)}
                     {board_id=(row_index*9)+column_index}
-                    <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
+                    <g>
+                        <rect class="BoardBox {box_select!=null ? box_select==box ? "this-box-selected":"this-box-not-selected":"pre-box"}" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight}
                         on:mouseenter={()=>{
                             box_update(box);
 
@@ -114,7 +126,26 @@
                         on:mouseleave={()=>{
                             box_reupdate();
                         }}
-                    />
+                        
+                        />
+                            {#if goes_first=="X" & first_moves.includes(box_list[box])}
+                                {column_index=(box%9)}
+                                {row_index=Math.floor(box/9)}
+                                <image class="XSymbol" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight} href="static/images/close.png" alt=""/>
+                            {:else if goes_first=="Y" & first_moves.includes(box_list[box])}
+                                {column_index=(box%9)}
+                                {row_index=Math.floor(box/9)}
+                                <image class="OSymbol" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight} href="static/images/circle.png" alt=""/>
+                            {:else if goes_first=="X" & second_moves.includes(box_list[box])}
+                                {column_index=(box%9)}
+                                {row_index=Math.floor(box/9)}
+                                <image class="OSymbol" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight} href="static/images/circle.png" alt=""/>
+                            {:else if goes_first=="Y" & second_moves.includes(box_list[box])}
+                                {column_index=(box%9)}
+                                {row_index=Math.floor(box/9)}
+                                <image class="XSymbol" x={GB_X1+(column_index*boardBoxHeight)} y={GB_Y1+(row_index*boardBoxHeight)} width={boardBoxWidth} height={boardBoxHeight} href="static/images/close.png" alt=""/>
+                            {/if}
+                    </g>
                 {/each}
                 <!-- drawing the gridlines of the baord -->
                 <!-- row lines and labels -->
@@ -214,6 +245,13 @@
     image.imagebox{
 		opacity: 1;
 	}
+
+    image.XSymbol{
+        opacity: 1;
+    }
+    image.OSymbol{
+        opacity: 1;
+    }
     rect.this-box-not-selected{
         fill: white;
         /* stroke: gray;
@@ -232,5 +270,7 @@
         stroke: gray;
         stroke-width: 4px;
     }
+
+
 
 </style>
