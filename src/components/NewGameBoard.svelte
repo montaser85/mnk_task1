@@ -26,6 +26,7 @@
   let column_num = 9;
   let column_index;
   let row_index;
+  let symbolDimension=boardBoxHeight*0.9;
   let column_names = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   let row_names = ["1", "2", "3", "4"];
   boxArray = Array.apply(null, { length: boxNum }).map(Number.call, Number);
@@ -84,6 +85,20 @@
   $: first_moves = JSON.stringify(goes_first_array);
   $: second_moves = JSON.stringify(goes_second_array);
 
+// combining x and o-moves alternateviely
+let AllMoves = [];
+for(let i = 0; i < first_array.length + second_array.length; i++){
+    if(i % 2 === 0){
+        AllMoves.push(first_array[i/2]);
+    }else{
+        AllMoves.push(second_array[(i-1)/2]);
+    };
+};
+
+console.log(AllMoves);
+
+
+
   box_select_store.subscribe((data) => {
     box_select = data;
   });
@@ -136,7 +151,6 @@
   }
   let symbol;
   function SymbolName(box){
-    console.log(first_moves);
     if((goes_first == "X") & first_moves.includes(box_list[box])){
         symbol="X";
     }
@@ -151,6 +165,11 @@
     }
     return symbol;
 }
+    let suffix;
+    function suffixName(box){
+        suffix=AllMoves.indexOf(box_list[box])+1;
+        return suffix;
+    }
 
   let i = 0;
   function BoxElementUpdate(move_num) {
@@ -180,17 +199,9 @@
       return [goes_second_array, ...items];
     });
   }
-  // console.log(first_array);
-  //console.log(goes_first_array);
 </script>
 
-<!-- <main> -->
-<div>
-  <!-- counter value: {goes_first_array} -->
-  <!-- {console.log(first_moves.length)}
-        {console.log(first_moves)}
-        {console.log(first_moves.includes("E1"))} -->
-</div>
+<main>
 <div id="GameBoard">
   <svg
     id="svgBoard"
@@ -225,13 +236,18 @@
             {(row_index = Math.floor(box / 9))}
             <image
                 class="XSymbol"
-                x={GB_X1 + column_index * boardBoxHeight}
-                y={GB_Y1 + row_index * boardBoxHeight}
-                width={boardBoxWidth}
-                height={boardBoxHeight}
+                x={GB_X1 + (column_index * boardBoxHeight)}
+                y={GB_Y1 + (row_index * boardBoxHeight)}
+                width={symbolDimension}
+                height={symbolDimension}
                 href="static/images/{SymbolName(box)}.png"
                 alt=""
                 />
+            <text
+                class="SymbolSuffix"
+                x={GB_X1 + (column_index * boardBoxHeight)+(boardBoxHeight*0.8)}
+                y={GB_Y1 + (row_index * boardBoxHeight)+20}>{suffixName(box)}
+            </text>
         {/if}
         </g>
       {/each}
@@ -374,7 +390,7 @@
   </svg>
 </div>
 
-<!-- </main> -->
+</main>
 <style>
   #GameBoard {
     display: flex;
@@ -404,6 +420,11 @@
     fill: #e1e1e1;
     stroke: #6f6f6f;
     stroke-width: 4px;
+  }
+  .SymbolSuffix{
+    font-weight: 500;
+    font-size: larger;
+    fill: black;
   }
   image.imagebox {
     opacity: 1;

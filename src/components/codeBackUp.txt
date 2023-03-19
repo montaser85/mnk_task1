@@ -1,6 +1,5 @@
-Symbol Boxes on the GameBoard Logic:
-
- 
+ **********************************************************************************
+ Detailed Logic For showing the GameBoard components:
 
           {#if (goes_first == "X") & first_moves.includes(box_list[box])}
             {(column_index = box % 9)}
@@ -51,3 +50,5 @@ Symbol Boxes on the GameBoard Logic:
               alt=""
             />
           {/if}
+
+***************************************************************************
