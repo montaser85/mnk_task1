@@ -201,10 +201,7 @@
     >
       <g id="BoardView">
         {#each boxArray as box}
-          <!-- {(column_index = box % 9)}
-          {(row_index = Math.floor(box / 9))} -->
           <!-- ********************************************** -->
-
           {#if (move_num == max_move) & win_seq.includes(box_list[box])}
           {(column_index = box % 9)}
           {(row_index = Math.floor(box / 9))}
@@ -292,8 +289,8 @@
               </g>
             {/if}
           {:else}
-          {(column_index = box % 9)}
-          {(row_index = Math.floor(box / 9))}
+            {(column_index = box % 9)}
+            {(row_index = Math.floor(box / 9))}
             <g
               class="Box_and_Symbol {box_select == box
                 ? 'this-box-selected'
