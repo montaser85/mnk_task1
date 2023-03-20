@@ -52,3 +52,175 @@
           {/if}
 
 ***************************************************************************
+
+{#if (move_num == max_move) & win_seq.includes(box_list[box])}
+            {#if winner=="X"}
+                <g
+                class="Win_Box_and_Symbol {box_select == box?'this-win-x-box-selected':'this-win-x-box-not-selected'}"
+                on:mouseenter={() => {
+                    box_update(box);
+                }}
+                on:mouseleave={() => {
+                    box_reupdate();
+                }}
+                >
+                <rect
+                    class="BoardBox"
+                    x={GB_X1 + column_index * boardBoxHeight}
+                    y={GB_Y1 + row_index * boardBoxHeight}
+                    width={boardBoxWidth}
+                    height={boardBoxHeight}
+                />
+                {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
+                    {(column_index = box % 9)}
+                    {(row_index = Math.floor(box / 9))}
+                    <image
+                    class="XSymbol"
+                    x={GB_X1 + column_index * boardBoxHeight}
+                    y={GB_Y1 + row_index * boardBoxHeight}
+                    width={symbolDimension}
+                    height={symbolDimension}
+                    href="static/images/{SymbolName(box)}.png"
+                    alt=""
+                    />
+                    <text
+                    class="SymbolSuffix"
+                    x={GB_X1 +
+                        column_index * boardBoxHeight +
+                        boardBoxHeight * 0.8}
+                    y={GB_Y1 + row_index * boardBoxHeight + 20}
+                    >{suffixName(box)}
+                    </text>
+                {/if}
+                </g>
+            {:else if winner=="O"}
+                <g
+                class="Win_Box_and_Symbol {box_select == box?'this-win-o-box-selected':'this-win-o-box-not-selected'}"
+                on:mouseenter={() => {
+                    box_update(box);
+                }}
+                on:mouseleave={() => {
+                    box_reupdate();
+                }}
+                >
+                <rect
+                    class="BoardBox"
+                    x={GB_X1 + column_index * boardBoxHeight}
+                    y={GB_Y1 + row_index * boardBoxHeight}
+                    width={boardBoxWidth}
+                    height={boardBoxHeight}
+                />
+                {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
+                    {(column_index = box % 9)}
+                    {(row_index = Math.floor(box / 9))}
+                    <image
+                    class="XSymbol"
+                    x={GB_X1 + column_index * boardBoxHeight}
+                    y={GB_Y1 + row_index * boardBoxHeight}
+                    width={symbolDimension}
+                    height={symbolDimension}
+                    href="static/images/{SymbolName(box)}.png"
+                    alt=""
+                    />
+                    <text
+                    class="SymbolSuffix"
+                    x={GB_X1 +
+                        column_index * boardBoxHeight +
+                        boardBoxHeight * 0.8}
+                    y={GB_Y1 + row_index * boardBoxHeight + 20}
+                    >{suffixName(box)}
+                    </text>
+                {/if}
+                </g>
+            {/if}
+            
+          {:else}
+            <g
+              class="Box_and_Symbol {box_select == box
+                ? 'this-box-selected'
+                : 'this-box-not-selected'}"
+              on:mouseenter={() => {
+                box_update(box);
+              }}
+              on:mouseleave={() => {
+                box_reupdate();
+              }}
+            >
+              <rect
+                class="BoardBox"
+                x={GB_X1 + column_index * boardBoxHeight}
+                y={GB_Y1 + row_index * boardBoxHeight}
+                width={boardBoxWidth}
+                height={boardBoxHeight}
+              />
+              {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
+                {(column_index = box % 9)}
+                {(row_index = Math.floor(box / 9))}
+                <image
+                  class="XSymbol"
+                  x={GB_X1 + column_index * boardBoxHeight}
+                  y={GB_Y1 + row_index * boardBoxHeight}
+                  width={symbolDimension}
+                  height={symbolDimension}
+                  href="static/images/{SymbolName(box)}.png"
+                  alt=""
+                />
+                <text
+                  class="SymbolSuffix"
+                  x={GB_X1 +
+                    column_index * boardBoxHeight +
+                    boardBoxHeight * 0.8}
+                  y={GB_Y1 + row_index * boardBoxHeight + 20}
+                  >{suffixName(box)}
+                </text>
+              {/if}
+            </g>
+          {/if}
+        {/each}
+
+
+
+
+        ********************
+
+        {console.log(box)}   
+        <g
+        class="Box_and_Symbol {box_select == box
+          ? 'this-box-selected'
+          : 'this-box-not-selected'}"
+        on:mouseenter={() => {
+          box_update(box);
+        }}
+        on:mouseleave={() => {
+          box_reupdate();
+        }}
+      >
+        <rect
+          class="BoardBox"
+          x={GB_X1 + column_index * boardBoxHeight}
+          y={GB_Y1 + row_index * boardBoxHeight}
+          width={boardBoxWidth}
+          height={boardBoxHeight}
+        />
+        {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
+          {(column_index = box % 9)}
+          {(row_index = Math.floor(box / 9))}
+          <image
+            class="XSymbol"
+            x={GB_X1 + column_index * boardBoxHeight}
+            y={GB_Y1 + row_index * boardBoxHeight}
+            width={symbolDimension}
+            height={symbolDimension}
+            href="static/images/{SymbolName(box)}.png"
+            alt=""
+          />
+          <text
+            class="SymbolSuffix"
+            x={GB_X1 +
+              column_index * boardBoxHeight +
+              boardBoxHeight * 0.8}
+            y={GB_Y1 + row_index * boardBoxHeight + 20}
+            >{suffixName(box)}
+          </text>
+        {/if}
+      </g>

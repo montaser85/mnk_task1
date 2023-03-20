@@ -201,34 +201,36 @@
     >
       <g id="BoardView">
         {#each boxArray as box}
-          {(column_index = box % 9)}
-          <!-- {row_index=(box-(box%9))/9} -->
-          {(row_index = Math.floor(box / 9))}
-          {(board_id = row_index * 9 + column_index)}
+          <!-- {(column_index = box % 9)}
+          {(row_index = Math.floor(box / 9))} -->
+          <!-- ********************************************** -->
 
-          <!-- class="Win_Box_and_Symbol {box_select == box?'this-win-box-selected':'this-win-box-not-selected'}" -->
           {#if (move_num == max_move) & win_seq.includes(box_list[box])}
-            {#if winner=="X"}
-                <g
-                class="Win_Box_and_Symbol {box_select == box?'this-win-x-box-selected':'this-win-x-box-not-selected'}"
+          {(column_index = box % 9)}
+          {(row_index = Math.floor(box / 9))}
+            {#if winner == "X"}
+              <g
+                class="Win_Box_and_Symbol {box_select == box
+                  ? 'this-win-x-box-selected'
+                  : 'this-win-x-box-not-selected'}"
                 on:mouseenter={() => {
-                    box_update(box);
+                  box_update(box);
                 }}
                 on:mouseleave={() => {
-                    box_reupdate();
+                  box_reupdate();
                 }}
-                >
+              >
                 <rect
-                    class="BoardBox"
-                    x={GB_X1 + column_index * boardBoxHeight}
-                    y={GB_Y1 + row_index * boardBoxHeight}
-                    width={boardBoxWidth}
-                    height={boardBoxHeight}
+                  class="BoardBox"
+                  x={GB_X1 + column_index * boardBoxHeight}
+                  y={GB_Y1 + row_index * boardBoxHeight}
+                  width={boardBoxWidth}
+                  height={boardBoxHeight}
                 />
                 {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
-                    {(column_index = box % 9)}
-                    {(row_index = Math.floor(box / 9))}
-                    <image
+                  {(column_index = box % 9)}
+                  {(row_index = Math.floor(box / 9))}
+                  <image
                     class="XSymbol"
                     x={GB_X1 + column_index * boardBoxHeight}
                     y={GB_Y1 + row_index * boardBoxHeight}
@@ -236,38 +238,40 @@
                     height={symbolDimension}
                     href="static/images/{SymbolName(box)}.png"
                     alt=""
-                    />
-                    <text
+                  />
+                  <text
                     class="SymbolSuffix"
                     x={GB_X1 +
-                        column_index * boardBoxHeight +
-                        boardBoxHeight * 0.8}
+                      column_index * boardBoxHeight +
+                      boardBoxHeight * 0.8}
                     y={GB_Y1 + row_index * boardBoxHeight + 20}
                     >{suffixName(box)}
-                    </text>
+                  </text>
                 {/if}
-                </g>
-            {:else if winner=="O"}
-                <g
-                class="Win_Box_and_Symbol {box_select == box?'this-win-o-box-selected':'this-win-o-box-not-selected'}"
+              </g>
+            {:else if winner == "O"}
+              <g
+                class="Win_Box_and_Symbol {box_select == box
+                  ? 'this-win-o-box-selected'
+                  : 'this-win-o-box-not-selected'}"
                 on:mouseenter={() => {
-                    box_update(box);
+                  box_update(box);
                 }}
                 on:mouseleave={() => {
-                    box_reupdate();
+                  box_reupdate();
                 }}
-                >
+              >
                 <rect
-                    class="BoardBox"
-                    x={GB_X1 + column_index * boardBoxHeight}
-                    y={GB_Y1 + row_index * boardBoxHeight}
-                    width={boardBoxWidth}
-                    height={boardBoxHeight}
+                  class="BoardBox"
+                  x={GB_X1 + column_index * boardBoxHeight}
+                  y={GB_Y1 + row_index * boardBoxHeight}
+                  width={boardBoxWidth}
+                  height={boardBoxHeight}
                 />
                 {#if (move_num > 0) & (first_moves.includes(box_list[box]) || second_moves.includes(box_list[box]))}
-                    {(column_index = box % 9)}
-                    {(row_index = Math.floor(box / 9))}
-                    <image
+                  {(column_index = box % 9)}
+                  {(row_index = Math.floor(box / 9))}
+                  <image
                     class="XSymbol"
                     x={GB_X1 + column_index * boardBoxHeight}
                     y={GB_Y1 + row_index * boardBoxHeight}
@@ -275,20 +279,21 @@
                     height={symbolDimension}
                     href="static/images/{SymbolName(box)}.png"
                     alt=""
-                    />
-                    <text
+                  />
+                  <text
                     class="SymbolSuffix"
                     x={GB_X1 +
-                        column_index * boardBoxHeight +
-                        boardBoxHeight * 0.8}
+                      column_index * boardBoxHeight +
+                      boardBoxHeight * 0.8}
                     y={GB_Y1 + row_index * boardBoxHeight + 20}
                     >{suffixName(box)}
-                    </text>
+                  </text>
                 {/if}
-                </g>
+              </g>
             {/if}
-            
           {:else}
+          {(column_index = box % 9)}
+          {(row_index = Math.floor(box / 9))}
             <g
               class="Box_and_Symbol {box_select == box
                 ? 'this-box-selected'
@@ -330,6 +335,8 @@
               {/if}
             </g>
           {/if}
+
+          <!-- ********************************************** -->
         {/each}
         <!-- drawing the gridlines of the baord -->
         <!-- row lines and labels -->
@@ -370,7 +377,8 @@
         {/each}
         <!-- adding buttons -->
         <!-- prior move button -->
-        <g class="BoardButton {move_num>0? "clickable":"not-clickable"}"
+        <g
+          class="BoardButton {move_num > 0 ? 'clickable' : 'not-clickable'}"
           on:click={() => {
             if (move_num >= 1) {
               move_decrement();
@@ -391,13 +399,13 @@
             height={boardBoxHeight * 0.8}
           />
           <text
-            class="ButtonLabels {move_num>0? "clickable":"not-clickable"}"
-            x={GB_X1 + (1.7 * boardBoxHeight)-10}
-            y={GB_Y1 + (4.5 * boardBoxHeight)}>Prior Move</text
+            class="ButtonLabels {move_num > 0 ? 'clickable' : 'not-clickable'}"
+            x={GB_X1 + 1.7 * boardBoxHeight - 10}
+            y={GB_Y1 + 4.5 * boardBoxHeight}>Prior Move</text
           >
           <!-- <image class="imagebox" x={GB_X1+(1.7*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_back.png" alt=""/> -->
           <image
-            class="imagebox {move_num>0 ? "clickable":"not-clickable"}"
+            class="imagebox {move_num > 0 ? 'clickable' : 'not-clickable'}"
             x={GB_X1 + 10 + 1.7 * boardBoxHeight}
             y={GB_Y1 + 25 + 4.2 * boardBoxHeight}
             width="60"
@@ -407,44 +415,50 @@
           />
         </g>
 
-          <!-- Next move button  -->
-        <g class="BoardButton {move_num<max_move? "clickable":"not-clickable"}"
-            on:click={() => {
-                if (move_num < max_move) {
-                move_increment();
-                }
-            }}
-            on:keypress={() => {
-                if (move_num <= max_move) {
-                move_increment();
-                }
-            }}
-            >
-            <rect
-                x={GB_X1 + 6.2 * boardBoxHeight}
-                y={GB_Y1 + 4.2 * boardBoxHeight}
-                rx="10"
-                ry="10"
-                width={boardBoxWidth * 1.6}
-                height={boardBoxHeight * 0.8}
-            />
-            <text
-                class="ButtonLabels {move_num<max_move? "clickable":"not-clickable"}"
-                x={GB_X1 + (6.2 * boardBoxHeight)+6}
-                y={GB_Y1 + (4.5 * boardBoxHeight)}>Next Move</text
-            >
-            <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
-            <image
-                class="imagebox {move_num<max_move? "clickable":"not-clickable"}"
-                x={GB_X1 + 35 + (6.2 * boardBoxHeight)}
-                y={GB_Y1 + 25 + (4.2 * boardBoxHeight)}
-                width="60"
-                height="40"
-                href="static/images/arrow_for.png"
-                alt=""
-            />
+        <!-- Next move button  -->
+        <g
+          class="BoardButton {move_num < max_move
+            ? 'clickable'
+            : 'not-clickable'}"
+          on:click={() => {
+            if (move_num < max_move) {
+              move_increment();
+            }
+          }}
+          on:keypress={() => {
+            if (move_num <= max_move) {
+              move_increment();
+            }
+          }}
+        >
+          <rect
+            x={GB_X1 + 6.2 * boardBoxHeight}
+            y={GB_Y1 + 4.2 * boardBoxHeight}
+            rx="10"
+            ry="10"
+            width={boardBoxWidth * 1.6}
+            height={boardBoxHeight * 0.8}
+          />
+          <text
+            class="ButtonLabels {move_num < max_move
+              ? 'clickable'
+              : 'not-clickable'}"
+            x={GB_X1 + 6.2 * boardBoxHeight + 6}
+            y={GB_Y1 + 4.5 * boardBoxHeight}>Next Move</text
+          >
+          <!-- <image class="imagebox" x={GB_X1+(6.2*boardBoxHeight)} y={GB_Y1+20+(4.2*boardBoxHeight)} width=70 height=50 href="static/images/arrow_for.png" alt=""/> -->
+          <image
+            class="imagebox {move_num < max_move
+              ? 'clickable'
+              : 'not-clickable'}"
+            x={GB_X1 + 35 + 6.2 * boardBoxHeight}
+            y={GB_Y1 + 25 + 4.2 * boardBoxHeight}
+            width="60"
+            height="40"
+            href="static/images/arrow_for.png"
+            alt=""
+          />
         </g>
-
 
         <!-- adding text of the board -->
         <text
@@ -460,15 +474,15 @@
         </text>
         <rect
           class="NextMoveHolder"
-          x={GB_X1+45 + (5 * boardBoxHeight)}
-          y={GB_Y1 + (5 * boardBoxHeight)}
+          x={GB_X1 + 45 + 5 * boardBoxHeight}
+          y={GB_Y1 + 5 * boardBoxHeight}
           width="40"
           height="27"
         />
         <image
           class="imagebox"
-          x={GB_X1 + (5 * boardBoxHeight) + 50}
-          y={GB_Y1 + (5 * boardBoxHeight) - 2}
+          x={GB_X1 + 5 * boardBoxHeight + 50}
+          y={GB_Y1 + 5 * boardBoxHeight - 2}
           width="30"
           height="30"
           href="static/images/{move_next}.png"
@@ -557,14 +571,14 @@
     opacity: 1;
   }
   g.this-win-x-box-not-selected {
-    fill: #6495ED;
+    fill: #6495ed;
   }
   g.this-win-x-box-selected {
     fill: yellow;
   }
   g.this-win-o-box-not-selected {
     /* fill: #F88379; coral pink*/
-    fill: #FAA0A0;
+    fill: #faa0a0;
   }
   g.this-win-o-box-selected {
     fill: yellow;
