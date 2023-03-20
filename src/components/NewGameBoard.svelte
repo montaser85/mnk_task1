@@ -11,6 +11,7 @@
     updated_first_array,
     updated_second_array,
     winner,
+    max_move
   } from "../store.js";
   //import pred_data from "../prediction_results.json";
   let GB_X1 = 180;
@@ -36,7 +37,6 @@
   let box_select;
   let board_id;
   let board_components = [];
-  let max_move = 9;
   let move_next = goes_first;
   let goes_first_array = [];
   let goes_second_array = [];

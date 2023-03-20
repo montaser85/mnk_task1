@@ -7,6 +7,7 @@
     updated_second_array,
     goes_first,
     move_number,
+    max_move
   } from "../store.js";
   let GB_X1 = 230;
   let GB_Y1 = 30;

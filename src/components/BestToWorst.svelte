@@ -1,5 +1,19 @@
 <script>
     import { scaleLinear, scaleOrdinal } from "d3-scale";
+    import {
+    box_select_store,
+    move_number,
+    first_array,
+    second_array,
+    goes_first,
+    updated_first_array,
+    updated_second_array,
+    winner,
+    max_move,
+    btw_arrays
+  } from "../store.js";
+//   console.log(btw_arrays);
+  let move_num;
     let y_axis_x1=80;
     let y_axis_x2=80;
     let y_axis_y1=50;
@@ -41,14 +55,56 @@
     let y_label_offsetY=3;
     let viewBoxWidth=1100;
     let viewBoxHeight=380;
+    let array_taken=0;
+    
     // console.log(xScaleTicks.indexOf(1))
+    move_number.subscribe((data) => {
+    move_num = data;
+  });
+  let btw_array_index=0;
+  let i=0;
+  let btw_arrays_taken=[];
+
+  $:{
+    if(move_num>0){
+        btw_arrays_taken=[];
+        let limit=Math.ceil(move_num/2)
+    for (i=0;i<limit;i++){
+            btw_arrays_taken.push(btw_arrays[i])
+        }
+    }
+    // console.log(btw_arrays_taken);
+}
+
+
+
+let boxArray=[];
+boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
+  let box;
 </script>
 
 <main>
     <div id="chart">
         <svg id="svgCharts" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         >
-            <g id="ChartView">
+        <!-- {Math.ceil(move_num/2)} -->
+        <g class="btwBoxes">
+            
+                <!-- {console.log(move_num)} -->
+                <!-- {#each btw_arrays as btw_array}
+                    {console.log(btw_array)}
+                {/each} -->
+                
+            {#if move_num>0}
+                {#each btw_arrays_taken as btw_array}
+                        {console.log(btw_array)}
+                {/each}
+            {/if}
+            
+        </g>
+            
+        <!-- Drawing the lines of the axis -->
+        <g id="ChartView">
                 <text class="ChartHeading" x={((btw_x2-btw_x1)/2)-y_label_offsetX} y={y_axis_y1-(5*y_label_offsetY)}>Scores best-to-worst (BTW)</text>
                 <line class="axis" x1={y_axis_x1} y1={y_axis_y1} x2={y_axis_x2} y2={y_axis_y2}/>
                 <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2}/>
