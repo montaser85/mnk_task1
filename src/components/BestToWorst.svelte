@@ -1,5 +1,7 @@
 <script>
-  import { scaleLinear, scaleOrdinal } from "d3-scale";
+  import { scaleLinear, scaleOrdinal, scaleSequential } from "d3-scale";
+  import { schemeCategory10, interpolateGreys } from "d3-scale-chromatic";
+
   import {
     box_select_store,
     move_number,
@@ -113,7 +115,33 @@
   let diff;
   boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
   let PositionScaleNew;
-  // console.log(xScaleTicks.indexOf(1))
+  let colorScale;
+  let colorLinear;
+  colorScale = scaleSequential()
+    .domain([8,0])
+    .interpolator(interpolateGreys);
+
+colorLinear=scaleLinear()
+.domain([0,8])
+.range([
+    '#FFFFFF', '#F5F5F5', '#DCDCDC', '#D3D3D3', '#A9A9A9', '#808080', '#696969', '#333333', '#2F4F4F'
+])
+
+// const colors = ['#FFFFFF', '#F5F5F5', '#DCDCDC', '#D3D3D3', '#A9A9A9', '#808080', '#696969', '#333333', '#2F4F4F'];
+
+
+// color range=[
+//   '#f6f6f6', '#f1f1f1',
+//   '#ebebeb', '#e4e4e4',
+//   '#dddddd', '#d5d5d5',
+//   '#cccccc', '#c3c3c3',
+//   '#b9b9b9', '#adadad',
+//   '#a2a2a2', '#969696',
+//   '#8b8b8b', '#808080',
+//   '#757575', '#6a6a6a',
+//   '#5f5f5f', '#545454'
+// ]
+  PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
   move_number.subscribe((data) => {
     move_num = data;
   });
@@ -129,6 +157,7 @@
       }
     }
     // console.log(btw_scores_arrays_taken[0][k][0]);
+    console.log(btw_arrays.length);
   }
 
   box_select_store.subscribe((data) => {
@@ -154,7 +183,10 @@
     return score_value;
   }
 
-  PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
+  function colorUpdate(btw_index){
+    console.log(colorLinear(btw_index))
+    return colorLinear(btw_index);
+  }
 </script>
 
 <!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
@@ -189,16 +221,18 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                   }}
                 />
               {/each}
-              {:else}
-                {#each btw_array as box, i}
-                    <rect
-                        class="ChartPreviousBox"
-                        x={xValueUpdate(btw_array.indexOf(box))}
-                        y={yValueUpdate(box, index)}
-                        width={chartBoxWidth}
-                        height={chartBoxHeight}
-                    />
-                {/each}
+            {:else}
+              {#each btw_array as box, i}
+                <rect
+                  class="ChartPreviousBox"
+                  x={xValueUpdate(btw_array.indexOf(box))}
+                  y={yValueUpdate(box, index)}
+                  width={chartBoxWidth}
+                  height={chartBoxHeight}
+
+                  style="fill:{colorUpdate(index)}"
+                />
+              {/each}
             {/if}
           {/each}
         {/if}
@@ -351,8 +385,8 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     stroke-width: 1;
   }
 
-  .ChartPreviousBox{
-    fill: gray;
+  .ChartPreviousBox {
+    /* fill: gray; */
     stroke: black;
     stroke-width: 1;
   }
