@@ -149,6 +149,10 @@
     return score_value;
   }
 
+  function chartLabel(index){
+    return ((index*2)+1);
+  }
+
   PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
 </script>
 
@@ -223,6 +227,11 @@
                 {/if}
               {/each}
             {/if}
+            <text
+              class="y_labels"
+              x={y_axis_x1+20+(index*sttChartBoxWidth*2)} 
+              y={y_axis_y2+15}>{chartLabel(index)}</text
+            >
           {/each}
         {/if}
       </g>
@@ -230,7 +239,7 @@
       <g id="ChartView">
         <text
           class="ChartHeading"
-          x={(btw_x2 - btw_x1) / 2 - y_label_offsetX}
+          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
           y={y_axis_y1 - 5 * y_label_offsetY}>Scores through-time(TT)</text
         >
         <line
@@ -241,8 +250,6 @@
           y2={y_axis_y2}
         />
         <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
-        <!-- <line class="axis" x1={arrow1_x1} y1={arrow1_y1} x2={arrow1_x2} y2={arrow1_y2}/>
-                <line class="axis" x1={arrow2_x1} y1={arrow2_y1} x2={arrow2_x2} y2={arrow2_y2}/> -->
         <line
           class="axis"
           x1={arrow3_x1}
@@ -259,22 +266,22 @@
         />
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX}
+          x={y_axis_x1 - y_label_offsetX-15}
           y={y_axis_y1 + y_label_offsetY}>Win</text
         >
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX}
+          x={y_axis_x1 - y_label_offsetX-15}
           y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
         >
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX}
+          x={y_axis_x1 - y_label_offsetX-15}
           y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
         >
         <text
           class="y_labels"
-          x={(btw_x2 - btw_x1) / 2}
+          x={btw_x1+(btw_x2 - btw_x1) / 2}
           y={btw_y2 + 10 * y_label_offsetY}>Time</text
         >
         {#each xScaleTicks as tk}
@@ -340,6 +347,7 @@
   }
   .y_labels {
     font-weight: 500;
+    font-size: 22px;
   }
   .ChartHeading {
     font-weight: 500;
