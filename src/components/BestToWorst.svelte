@@ -10,12 +10,13 @@
     updated_second_array,
     winner,
     max_move,
-    btw_arrays
+    btw_arrays,
+    btw_scores_arrays
   } from "../store.js";
 //   console.log(btw_arrays);
   let move_num;
-  let chartBoxWidth=20;
-  let chartBoxHeight=8;
+  let chartBoxWidth=16;
+  let chartBoxHeight=6;
 //   let BTW_X1 = 230;
 //   let BTW_Y1 = 30;
     let y_axis_x1=80;
@@ -58,7 +59,7 @@
     let y_label_offsetX=45;
     let y_label_offsetY=3;
     let viewBoxWidth=1100;
-    let viewBoxHeight=380;
+    let viewBoxHeight=390;
     let array_taken=0;
     let box_list = [
     "A1",
@@ -100,12 +101,14 @@
   ];
 let box_num;
 let btw_array_index=0;
-  let i=0;
-  let btw_arrays_taken=[];
-  let boxArray=[];
+let i=0;
+let btw_arrays_taken=[];
+let btw_scores_arrays_taken=[];
+let boxArray=[];
 let box_select;
 let box_value;
 let btw_index;
+let k;
     
     // console.log(xScaleTicks.indexOf(1))
     move_number.subscribe((data) => {
@@ -118,12 +121,11 @@ let btw_index;
         let limit=Math.ceil(move_num/2)
     for (i=0;i<limit;i++){
             btw_arrays_taken.push(btw_arrays[i])
+            btw_scores_arrays_taken.push(btw_scores_arrays[i])
         }
     }
-    // console.log(btw_arrays_taken);
+        // console.log(btw_scores_arrays_taken[0][k][0]); 
 }
-
-
 
 boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
 
@@ -139,27 +141,46 @@ function box_update(box) {
   function box_reupdate() {
     box_select_store.set(null);
   }
-  
+let x_value;
+let score_value;
+let diff;
+function xValueUpdate(box_index){
+    x_value=y_axis_x1 + (box_index * (y_axis_x1/3))
+    return x_value;
+}
+function yValueUpdate(box_char,btw_index){
+    console.log(btw_index);
+    console.log(btw_scores_arrays_taken[btw_index])
+    score_value=btw_scores_arrays_taken[btw_index][box_char][0];
+    diff=y_axis_y2-y_axis_y1;
+    score_value=y_axis_y2-(diff*score_value);
+    return score_value;
+    
+}
 
 </script>
 
+<!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
+y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
 <main>
     <div id="chart">
         <svg id="svgCharts" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         >
         <g class="btwBoxes">
             {#if move_num>0}
-                {#each btw_arrays_taken as btw_array}
-                    {btw_index=0}
+                {btw_index=0}
+                {#each btw_arrays_taken as btw_array,index}
                         {#each btw_array as box}
                             <!-- {box_select=box_list.indexOf(box)} -->
                             <!-- {console.log(box_select)} -->
+                            <!-- {k=box_list[box]} -->
+                            <!-- {k=(btw_scores_arrays_taken[btw_index][box][0])} -->
                             <rect
                             class="ChartBox {box_select == box
                             ? 'this-box-selected'
                             : 'this-box-not-selected'}"
-                            x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
-                            y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)}
+                            x={xValueUpdate(btw_array.indexOf(box))}
+                            y={yValueUpdate(box,index)}
                             width={chartBoxWidth}
                             height={chartBoxHeight}
                             on:mouseenter={() => {
@@ -171,9 +192,10 @@ function box_update(box) {
                             box_reupdate();
                             }}
                         />
-                        {btw_index=btw_index+1}
                         {/each}
+                <!-- {console.log(btw_index=btw_index+1)}  -->
                 {/each}
+                <!-- {btw_index=btw_index+1} -->
             {/if}
         </g>
         <!-- Drawing the lines of the axis -->

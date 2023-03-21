@@ -40,7 +40,7 @@
     let y_label_offsetX=45;
     let y_label_offsetY=3;
     let viewBoxWidth=1100;
-    let viewBoxHeight=380;
+    let viewBoxHeight=390;
     // console.log(xScaleTicks.indexOf(1))
 </script>
 

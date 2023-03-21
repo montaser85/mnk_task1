@@ -12,6 +12,7 @@ let winner;
 let updated_first_array=writable([]);
 let updated_second_array=writable([]);
 let btw_arrays=[];
+let btw_scores_arrays=[];
 let btw_arrays_length;
 let max_move;
 
@@ -35,6 +36,11 @@ for(i=0; i<btw_arrays_length;i++){
     btw_arrays[i]=data_json.board_data[0]["BTW-arrays"]["BTW-"+btw_i]
     btw_i=btw_i+2;
 }
+btw_i=1;
+for(i=0; i<btw_arrays_length;i++){
+    btw_scores_arrays[i]=data_json.board_data[0]["coordinates"]["BTW-"+btw_i]
+    btw_i=btw_i+2;
+}
 
 
 
@@ -48,3 +54,4 @@ export {goes_first}
 export {winner}
 export {btw_arrays}
 export {max_move}
+export {btw_scores_arrays}
