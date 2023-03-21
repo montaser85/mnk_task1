@@ -47,5 +47,7 @@ npm run start
     + [Coding standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/)
     + [Example function header](https://www.codexpedia.com/javascript/javascript-function-and-class-header-documentation/)
 + [CSS Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-+ [Github flow branching](https://docs.github.com/en/get-started/quickstart/github-flow)
++ [SVG guide](https://www.aleksandrhovhannisyan.com/blog/svg-tutorial-how-to-code-svg-icons-by-hand/#svg-101-how-to-code-svgs-by-hand)
++ [SVG Positioning](https://www.jotform.com/blog/better-positioning-and-transforming-with-nested-svgs/#:~:text=When%20it%20comes%20to%20the,cy%E2%80%9D%20attributes%20for%20circles)
 + [Google Icon API](https://fonts.google.com/icons?icon.style=Rounded&icon.platform=web)
++ [Github flow branching](https://docs.github.com/en/get-started/quickstart/github-flow)
