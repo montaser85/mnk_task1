@@ -14,6 +14,10 @@
   } from "../store.js";
 //   console.log(btw_arrays);
   let move_num;
+  let chartBoxWidth=20;
+  let chartBoxHeight=8;
+//   let BTW_X1 = 230;
+//   let BTW_Y1 = 30;
     let y_axis_x1=80;
     let y_axis_x2=80;
     let y_axis_y1=50;
@@ -56,14 +60,57 @@
     let viewBoxWidth=1100;
     let viewBoxHeight=380;
     let array_taken=0;
+    let box_list = [
+    "A1",
+    "B1",
+    "C1",
+    "D1",
+    "E1",
+    "F1",
+    "G1",
+    "H1",
+    "I1",
+    "A2",
+    "B2",
+    "C2",
+    "D2",
+    "E2",
+    "F2",
+    "G2",
+    "H2",
+    "I2",
+    "A3",
+    "B3",
+    "C3",
+    "D3",
+    "E3",
+    "F3",
+    "G3",
+    "H3",
+    "I3",
+    "A4",
+    "B4",
+    "C4",
+    "D4",
+    "E4",
+    "F4",
+    "G4",
+    "H4",
+    "I4",
+  ];
+let box_num;
+let btw_array_index=0;
+  let i=0;
+  let btw_arrays_taken=[];
+  let boxArray=[];
+let box_select;
+let box_value;
+let btw_index;
     
     // console.log(xScaleTicks.indexOf(1))
     move_number.subscribe((data) => {
     move_num = data;
   });
-  let btw_array_index=0;
-  let i=0;
-  let btw_arrays_taken=[];
 
   $:{
     if(move_num>0){
@@ -78,31 +125,57 @@
 
 
 
-let boxArray=[];
 boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
-  let box;
+
+box_select_store.subscribe((data) => {
+    box_select = data;
+    if(box_select!=null){
+        box_select=box_list[box_select];
+    }
+  });
+function box_update(box) {
+    box_select_store.update((n) => box);
+  }
+  function box_reupdate() {
+    box_select_store.set(null);
+  }
+  
+
 </script>
 
 <main>
     <div id="chart">
         <svg id="svgCharts" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         >
-        <!-- {Math.ceil(move_num/2)} -->
         <g class="btwBoxes">
-            
-                <!-- {console.log(move_num)} -->
-                <!-- {#each btw_arrays as btw_array}
-                    {console.log(btw_array)}
-                {/each} -->
-                
             {#if move_num>0}
                 {#each btw_arrays_taken as btw_array}
-                        {console.log(btw_array)}
+                    {btw_index=0}
+                        {#each btw_array as box}
+                            <!-- {box_select=box_list.indexOf(box)} -->
+                            <!-- {console.log(box_select)} -->
+                            <rect
+                            class="ChartBox {box_select == box
+                            ? 'this-box-selected'
+                            : 'this-box-not-selected'}"
+                            x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
+                            y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)}
+                            width={chartBoxWidth}
+                            height={chartBoxHeight}
+                            on:mouseenter={() => {
+                                // {console.log(box_select)}
+                                box_num=box_list.indexOf(box)
+                                box_update(box_num);
+                            }}
+                            on:mouseleave={() => {
+                            box_reupdate();
+                            }}
+                        />
+                        {btw_index=btw_index+1}
+                        {/each}
                 {/each}
             {/if}
-            
         </g>
-            
         <!-- Drawing the lines of the axis -->
         <g id="ChartView">
                 <text class="ChartHeading" x={((btw_x2-btw_x1)/2)-y_label_offsetX} y={y_axis_y1-(5*y_label_offsetY)}>Scores best-to-worst (BTW)</text>
@@ -168,4 +241,16 @@ boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
         font-weight: 500;
         font-size: 2em;
     }
+    .ChartBox.this-box-not-selected {
+    fill: blue;
+    stroke: black;
+    stroke-width: 1;
+
+  }
+    .ChartBox.this-box-selected {
+    fill: yellow;
+    stroke: black;
+    stroke-width: 1;
+
+  }
 </style>
