@@ -22,8 +22,8 @@
   let sttChartBoxHeight = 6;
   let btw_x1 = 80;
   let btw_x2 = 1100;
-  let btw_y1 = 340;
-  let btw_y2 = 340;
+  let btw_y1 = 355;
+  let btw_y2 = 355;
 
   let arrow1_x1 = btw_x1;
   let arrow1_x2 = btw_x1 + 10;
@@ -118,12 +118,17 @@
   $: {
     if (move_num > 0) {
       btw_arrays_taken = [];
+      btw_scores_arrays_taken=[];
       let limit = Math.ceil(move_num / 2);
       for (i = 0; i < limit; i++) {
         btw_arrays_taken.push(btw_arrays[i]);
         btw_scores_arrays_taken.push(btw_scores_arrays[i]);
       }
+      console.log(move_num);
+      console.log(limit);
+      console.log(btw_scores_arrays_taken);
     }
+
   }
 
   box_select_store.subscribe((data) => {
@@ -139,12 +144,12 @@
     box_select_store.set(null);
   }
 
-  function xValueUpdate(box_index, btw_index) {
+  function xValueUpdate(btw_index) {
     x_value = y_axis_x1 + 5 + btw_index * 2 * sttChartBoxWidth;
     return x_value;
   }
   function yValueUpdate(box_char, btw_index) {
-    score_value = btw_scores_arrays_taken[btw_index][box_char][0];
+    score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
     score_value = PositionScaleNew(score_value);
     return score_value;
   }
@@ -175,7 +180,7 @@
                     class="ChartBox {box_select == box
                       ? 'this-top-box-selected'
                       : 'this-top-box-not-selected'}"
-                    x={xValueUpdate(btw_array.indexOf(box), index)}
+                    x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
@@ -192,7 +197,7 @@
                     class="ChartBox {box_select == box
                       ? 'this-box-selected'
                       : 'this-box-not-selected'}"
-                    x={xValueUpdate(btw_array.indexOf(box), index)}
+                    x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
@@ -211,7 +216,7 @@
                 {#if i == 0}
                   <rect
                     class="ChartBox {'this-top-box-not-selected'}"
-                    x={xValueUpdate(btw_array.indexOf(box), index)}
+                    x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
@@ -219,7 +224,7 @@
                 {:else}
                   <rect
                     class="ChartBox {'this-box-not-selected'}"
-                    x={xValueUpdate(btw_array.indexOf(box), index)}
+                    x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
@@ -229,8 +234,8 @@
             {/if}
             <text
               class="y_labels"
-              x={y_axis_x1+20+(index*sttChartBoxWidth*2)} 
-              y={y_axis_y2+15}>{chartLabel(index)}</text
+              x={y_axis_x1+15+(index*sttChartBoxWidth*2)} 
+              y={y_axis_y2+30}>{chartLabel(index)}</text
             >
           {/each}
         {/if}
@@ -249,6 +254,7 @@
           x2={y_axis_x2}
           y2={y_axis_y2}
         />
+        <!-- Time line -->
         <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
         <line
           class="axis"

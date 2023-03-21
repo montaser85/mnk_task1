@@ -121,6 +121,7 @@
   $: {
     if (move_num > 0) {
       btw_arrays_taken = [];
+      btw_scores_arrays_taken = [];
       let limit = Math.ceil(move_num / 2);
       for (i = 0; i < limit; i++) {
         btw_arrays_taken.push(btw_arrays[i]);
@@ -148,9 +149,7 @@
     return x_value;
   }
   function yValueUpdate(box_char, btw_index) {
-    score_value = btw_scores_arrays_taken[btw_index][box_char][0];
-    // diff=y_axis_y2-y_axis_y1;
-    // score_value=y_axis_y2-(diff*score_value);
+    score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
     score_value = PositionScaleNew(score_value);
     return score_value;
   }
@@ -171,25 +170,36 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
       <g class="btwBoxes">
         {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
-            {#each btw_array as box}
-              <rect
-                class="ChartBox {box_select == box
-                  ? 'this-box-selected'
-                  : 'this-box-not-selected'}"
-                x={xValueUpdate(btw_array.indexOf(box))}
-                y={yValueUpdate(box, index)}
-                width={chartBoxWidth}
-                height={chartBoxHeight}
-                on:mouseenter={() => {
-                  // {console.log(box_select)}
-                  box_num = box_list.indexOf(box);
-                  box_update(box_num);
-                }}
-                on:mouseleave={() => {
-                  box_reupdate();
-                }}
-              />
-            {/each}
+            {#if btw_arrays_taken.length == index + 1}
+              {#each btw_array as box}
+                <rect
+                  class="ChartBox {box_select == box
+                    ? 'this-box-selected'
+                    : 'this-box-not-selected'}"
+                  x={xValueUpdate(btw_array.indexOf(box))}
+                  y={yValueUpdate(box, index)}
+                  width={chartBoxWidth}
+                  height={chartBoxHeight}
+                  on:mouseenter={() => {
+                    box_num = box_list.indexOf(box);
+                    box_update(box_num);
+                  }}
+                  on:mouseleave={() => {
+                    box_reupdate();
+                  }}
+                />
+              {/each}
+              {:else}
+                {#each btw_array as box, i}
+                    <rect
+                        class="ChartPreviousBox"
+                        x={xValueUpdate(btw_array.indexOf(box))}
+                        y={yValueUpdate(box, index)}
+                        width={chartBoxWidth}
+                        height={chartBoxHeight}
+                    />
+                {/each}
+            {/if}
           {/each}
         {/if}
       </g>
@@ -197,7 +207,7 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
       <g id="ChartView">
         <text
           class="ChartHeading"
-          x={((btw_x2 - btw_x1) / 2.2) - y_label_offsetX}
+          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
           y={y_axis_y1 - 5 * y_label_offsetY}>Scores best-to-worst (BTW)</text
         >
         <line
@@ -238,17 +248,17 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
         />
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX-15}
+          x={y_axis_x1 - y_label_offsetX - 15}
           y={y_axis_y1 + y_label_offsetY}>Win</text
         >
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX-15}
+          x={y_axis_x1 - y_label_offsetX - 15}
           y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
         >
         <text
           class="y_labels"
-          x={y_axis_x1 - y_label_offsetX-15}
+          x={y_axis_x1 - y_label_offsetX - 15}
           y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
         >
         <text
@@ -337,6 +347,12 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
   }
   .ChartBox.this-box-selected {
     fill: yellow;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  .ChartPreviousBox{
+    fill: gray;
     stroke: black;
     stroke-width: 1;
   }
