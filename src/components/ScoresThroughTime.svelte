@@ -147,11 +147,7 @@ function xValueUpdate(box_index,btw_index){
     return x_value;
 }
 function yValueUpdate(box_char,btw_index){
-    console.log(btw_index);
-    console.log(btw_scores_arrays_taken[btw_index])
     score_value=btw_scores_arrays_taken[btw_index][box_char][0];
-    // diff=y_axis_y2-y_axis_y1;
-    // score_value=y_axis_y2-(diff*score_value);
     score_value=PositionScaleNew(score_value);
     return score_value;
     
@@ -167,27 +163,46 @@ PositionScaleNew=scaleLinear()
     <div id="chart">
         <svg id="svgCharts" width="100%" height="100%" viewBox="0 0 {viewBoxWidth} {viewBoxHeight}" 
         preserveAspectRatio="xMinYMid meet">
-
         <g class="sttBoxes">
             {#if move_num>0}
                 {#each btw_arrays_taken as btw_array,index}
-                        {#each btw_array as box}
-                            <rect
-                            class="ChartBox {box_select == box
-                            ? 'this-box-selected'
-                            : 'this-box-not-selected'}"
-                            x={xValueUpdate(btw_array.indexOf(box),index)}
-                            y={yValueUpdate(box,index)}
-                            width={sttChartBoxWidth}
-                            height={sttChartBoxHeight}
-                            on:mouseenter={() => {
-                                box_num=box_list.indexOf(box)
-                                box_update(box_num);
-                            }}
-                            on:mouseleave={() => {
-                            box_reupdate();
-                            }}
-                        />
+                        {#each btw_array as box,i}
+                            {#if i==0}
+                            {console.log("first Top")}
+                                <rect
+                                class="ChartBox {box_select == box
+                                ? 'this-top-box-selected'
+                                : 'this-top-box-not-selected'}"
+                                x={xValueUpdate(btw_array.indexOf(box),index)}
+                                y={yValueUpdate(box,index)}
+                                width={sttChartBoxWidth}
+                                height={sttChartBoxHeight}
+                                on:mouseenter={() => {
+                                    box_num=box_list.indexOf(box)
+                                    box_update(box_num);
+                                }}
+                                on:mouseleave={() => {
+                                box_reupdate();
+                                }}
+                                />
+                            {:else}
+                                <rect
+                                    class="ChartBox {box_select == box
+                                    ? 'this-box-selected'
+                                    : 'this-box-not-selected'}"
+                                    x={xValueUpdate(btw_array.indexOf(box),index)}
+                                    y={yValueUpdate(box,index)}
+                                    width={sttChartBoxWidth}
+                                    height={sttChartBoxHeight}
+                                    on:mouseenter={() => {
+                                        box_num=box_list.indexOf(box)
+                                        box_update(box_num);
+                                    }}
+                                    on:mouseleave={() => {
+                                    box_reupdate();
+                                    }}
+                                    />  
+                        {/if}
                         {/each}
                 {/each}
             {/if}
@@ -263,6 +278,18 @@ PositionScaleNew=scaleLinear()
 
   }
     .ChartBox.this-box-selected {
+    fill: yellow;
+    stroke: black;
+    stroke-width: 1;
+
+  }
+  .ChartBox.this-top-box-not-selected {
+    fill: blue;
+    /* stroke: black;
+    stroke-width: 1; */
+
+  }
+    .ChartBox.this-top-box-selected {
     fill: yellow;
     stroke: black;
     stroke-width: 1;
