@@ -152,11 +152,16 @@ function yValueUpdate(box_char,btw_index){
     console.log(btw_index);
     console.log(btw_scores_arrays_taken[btw_index])
     score_value=btw_scores_arrays_taken[btw_index][box_char][0];
-    diff=y_axis_y2-y_axis_y1;
-    score_value=y_axis_y2-(diff*score_value);
+    // diff=y_axis_y2-y_axis_y1;
+    // score_value=y_axis_y2-(diff*score_value);
+    score_value=PositionScaleNew(score_value);
     return score_value;
     
 }
+let PositionScaleNew;
+PositionScaleNew=scaleLinear()
+			.domain([1,-1])
+            .range([50,320]);
 
 </script>
 
