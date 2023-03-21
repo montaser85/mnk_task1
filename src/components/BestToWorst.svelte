@@ -109,9 +109,13 @@ let box_select;
 let box_value;
 let btw_index;
 let k;
-    
+let x_value;
+let score_value;
+let diff;
+boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
+let PositionScaleNew;
     // console.log(xScaleTicks.indexOf(1))
-    move_number.subscribe((data) => {
+move_number.subscribe((data) => {
     move_num = data;
   });
 
@@ -127,7 +131,7 @@ let k;
         // console.log(btw_scores_arrays_taken[0][k][0]); 
 }
 
-boxArray = Array.apply(null, { length: 36 }).map(Number.call, Number);
+
 
 box_select_store.subscribe((data) => {
     box_select = data;
@@ -141,16 +145,12 @@ function box_update(box) {
   function box_reupdate() {
     box_select_store.set(null);
   }
-let x_value;
-let score_value;
-let diff;
+
 function xValueUpdate(box_index){
     x_value=y_axis_x1 + (box_index * (y_axis_x1/3))
     return x_value;
 }
 function yValueUpdate(box_char,btw_index){
-    console.log(btw_index);
-    console.log(btw_scores_arrays_taken[btw_index])
     score_value=btw_scores_arrays_taken[btw_index][box_char][0];
     // diff=y_axis_y2-y_axis_y1;
     // score_value=y_axis_y2-(diff*score_value);
@@ -158,7 +158,7 @@ function yValueUpdate(box_char,btw_index){
     return score_value;
     
 }
-let PositionScaleNew;
+
 PositionScaleNew=scaleLinear()
 			.domain([1,-1])
             .range([50,320]);
@@ -173,13 +173,8 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
         >
         <g class="btwBoxes">
             {#if move_num>0}
-                {btw_index=0}
                 {#each btw_arrays_taken as btw_array,index}
                         {#each btw_array as box}
-                            <!-- {box_select=box_list.indexOf(box)} -->
-                            <!-- {console.log(box_select)} -->
-                            <!-- {k=box_list[box]} -->
-                            <!-- {k=(btw_scores_arrays_taken[btw_index][box][0])} -->
                             <rect
                             class="ChartBox {box_select == box
                             ? 'this-box-selected'
@@ -198,12 +193,10 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                             }}
                         />
                         {/each}
-                <!-- {console.log(btw_index=btw_index+1)}  -->
                 {/each}
-                <!-- {btw_index=btw_index+1} -->
             {/if}
         </g>
-        <!-- Drawing the lines of the axis -->
+        <!-- Drawing the axis lines-->
         <g id="ChartView">
                 <text class="ChartHeading" x={((btw_x2-btw_x1)/2)-y_label_offsetX} y={y_axis_y1-(5*y_label_offsetY)}>Scores best-to-worst (BTW)</text>
                 <line class="axis" x1={y_axis_x1} y1={y_axis_y1} x2={y_axis_x2} y2={y_axis_y2}/>
