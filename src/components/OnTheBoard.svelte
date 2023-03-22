@@ -3,15 +3,28 @@
     import { each } from "svelte/internal";
     import {
         box_select_store,
-        updated_first_array,
-        updated_second_array,
-        goes_first,
-        move_number,
+    move_number,
+    first_array,
+    second_array,
+    goes_first,
+    updated_first_array,
+    updated_second_array,
+    winner,
+    max_move,
+    btw_arrays,
+    btw_scores_arrays,
     } from "../store.js";
     let GB_X1 = 230;
     let GB_Y1 = 30;
     let boardBoxWidth = 70;
     let boardBoxHeight = 70;
+
+    let smallBoxWidth = 10;
+    let smallBoxHeight = 3;
+    let btw_arrays_taken = [];
+    let btw_scores_arrays_taken=[];
+    let i=0;
+
     let viewBoxWidth = 1100;
     let viewBoxHeight = 360;
     let xScaleTicks = [];
@@ -28,6 +41,9 @@
     let move_num = 0;
     let board_id;
     let box_select;
+    let box_x;
+    let box_y;
+    let PositionScaleNew;
     let first_moves = [];
     let second_moves = [];
     let goes_first_array = [];
@@ -104,6 +120,31 @@
         }
         return symbol;
     }
+
+    $: {
+    if (move_num > 0) {
+      btw_arrays_taken = [];
+      btw_scores_arrays_taken=[];
+      let limit = Math.ceil(move_num / 2);
+      for (i = 0; i < limit; i++) {
+        btw_arrays_taken.push(btw_arrays[i]);
+        btw_scores_arrays_taken.push(btw_scores_arrays[i]);
+      }
+    }
+    console.log(btw_scores_arrays_taken); 
+  }
+
+  function xValueUpdate(btw_index) {
+    x_value = y_axis_x1 + 5 + btw_index * 2 * sttChartBoxWidth;
+    return x_value;
+  }
+  function yValueUpdate(box_char, btw_index) {
+    score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
+    score_value = PositionScaleNew(score_value);
+    return score_value;
+  }
+
+  PositionScaleNew = scaleLinear().domain([1, -1]).range([30, 100]);
 </script>
 
 <main>
@@ -173,6 +214,30 @@
                         />
                     {/if}
                 {/each}
+
+                <!-- ******************** -->
+                <g class="smallBoxesAll">
+                    {#if move_num>0}
+                        {#each box_list as box,box_i}
+                            {(column_index = box_i % 9)}
+                            {(row_index = Math.floor(box_i / 9))}      
+                            {box_x=GB_X1 + column_index * boardBoxHeight}
+                            {box_y=GB_Y1 + row_index * boardBoxHeight}
+                            {console.log("In Box: "+box)}
+                            {#each btw_scores_arrays_taken as btw_scores_array,btw_index}
+                                <rect
+                                class="smallBox"
+                                x={box_x+ (btw_index*smallBoxWidth)}
+                                y={box_y+20}
+                                width={smallBoxWidth}
+                                height={smallBoxHeight}
+                            />
+                            {/each}
+                        {/each}
+                    {/if}
+                </g>
+                <!-- ********************* -->
+
                 <!-- row lines-->
                 <g>
                     {#each row_names as row_name}

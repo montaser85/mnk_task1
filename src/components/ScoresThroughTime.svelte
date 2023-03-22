@@ -124,7 +124,7 @@
         btw_arrays_taken.push(btw_arrays[i]);
         btw_scores_arrays_taken.push(btw_scores_arrays[i]);
       }
-    }
+    } 
   }
 
   box_select_store.subscribe((data) => {
