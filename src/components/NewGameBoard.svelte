@@ -538,7 +538,7 @@
   }
   .BoardButton.not-clickable {
     fill: #e1e1e1;
-    stroke: #6f6f6f;
+    stroke: #b1afaf;
     stroke-width: 4px;
   }
   .SymbolSuffix {
