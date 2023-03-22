@@ -15,12 +15,9 @@
     btw_arrays,
     btw_scores_arrays,
   } from "../store.js";
-  //   console.log(btw_arrays);
   let move_num;
   let chartBoxWidth = 16;
   let chartBoxHeight = 6;
-  //   let BTW_X1 = 230;
-  //   let BTW_Y1 = 30;
   let y_axis_x1 = 80;
   let y_axis_x2 = 80;
   let y_axis_y1 = 50;
@@ -55,7 +52,6 @@
   let xScaleNew;
   xScaleNew = scaleLinear().domain([0, 1]);
   xScaleTicks = xScaleNew.ticks(21);
-  //console.log(xScaleTicks);
   let xIndex;
   let y_label_offsetX = 45;
   let y_label_offsetY = 3;
@@ -117,30 +113,23 @@
   let PositionScaleNew;
   let colorScale;
   let colorLinear;
-  colorScale = scaleSequential()
-    .domain([8,0])
-    .interpolator(interpolateGreys);
+  colorScale = scaleSequential().domain([8, 0]).interpolator(interpolateGreys);
 
-colorLinear=scaleLinear()
-.domain([0,8])
-.range([
-    '#FFFFFF', '#F5F5F5', '#DCDCDC', '#D3D3D3', '#A9A9A9', '#808080', '#696969', '#333333', '#2F4F4F'
-])
+  colorLinear = scaleOrdinal()
+    .domain([10, 0])
+    .range([
+      "#F8F8F8",
+      "#E5E5E5",
+      "#CCCCCC",
+      "#B3B3B3",
+      "#999999",
+      "#808080",
+      "#666666",
+      "#4D4D4D",
+      "#333333",
+      "#1A1A1A",
+    ]);
 
-// const colors = ['#FFFFFF', '#F5F5F5', '#DCDCDC', '#D3D3D3', '#A9A9A9', '#808080', '#696969', '#333333', '#2F4F4F'];
-
-
-// color range=[
-//   '#f6f6f6', '#f1f1f1',
-//   '#ebebeb', '#e4e4e4',
-//   '#dddddd', '#d5d5d5',
-//   '#cccccc', '#c3c3c3',
-//   '#b9b9b9', '#adadad',
-//   '#a2a2a2', '#969696',
-//   '#8b8b8b', '#808080',
-//   '#757575', '#6a6a6a',
-//   '#5f5f5f', '#545454'
-// ]
   PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
   move_number.subscribe((data) => {
     move_num = data;
@@ -156,8 +145,6 @@ colorLinear=scaleLinear()
         btw_scores_arrays_taken.push(btw_scores_arrays[i]);
       }
     }
-    // console.log(btw_scores_arrays_taken[0][k][0]);
-    console.log(btw_arrays.length);
   }
 
   box_select_store.subscribe((data) => {
@@ -183,8 +170,7 @@ colorLinear=scaleLinear()
     return score_value;
   }
 
-  function colorUpdate(btw_index){
-    console.log(colorLinear(btw_index))
+  function colorUpdate(btw_index) {
     return colorLinear(btw_index);
   }
 </script>
@@ -229,7 +215,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                   y={yValueUpdate(box, index)}
                   width={chartBoxWidth}
                   height={chartBoxHeight}
-
                   style="fill:{colorUpdate(index)}"
                 />
               {/each}
