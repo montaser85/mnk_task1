@@ -154,6 +154,22 @@
     return ((index*2)+1);
   }
 
+  function colorUpdate(box,box_select,i) {
+    if(i==0){
+        if(box_select==box)
+            return "#FFFF00";
+        else
+            return "#0000FF";
+    }
+    else{
+        if(box_select==box)
+            return "#FFFF00";
+        else
+            return "#d4d3d3";
+    }
+ 
+  }
+
   PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
 </script>
 
@@ -211,19 +227,21 @@
               {#each btw_array as box, i}
                 {#if i == 0}
                   <rect
-                    class="ChartBox {'this-top-box-not-selected'}"
+                    class="ChartBox"
                     x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
+                    style="fill:{colorUpdate(box,box_select,i)}"
                   />
                 {:else}
                   <rect
-                    class="ChartBox {'this-box-not-selected'}"
+                    class="ChartBox"
                     x={xValueUpdate(index)}
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
+                    style="fill:{colorUpdate(box,box_select,i)}"
                   />
                 {/if}
               {/each}
