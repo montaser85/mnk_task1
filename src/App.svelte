@@ -11,7 +11,7 @@
         <div id="game">
             <div id="GameInfo"> <GameInfo/>  </div>
             <div id="GameBoard"><NewGameBoard /></div>
-            <div id="GameInstructions">instructions</div>
+            <div id="GameInstructions"></div>
         </div>
         <div id="explanation">
             <div id="BestToWorst"><BestToWorst /></div>

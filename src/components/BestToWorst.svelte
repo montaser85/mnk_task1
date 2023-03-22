@@ -171,9 +171,6 @@
   }
 
   function colorUpdate(btw_index,box,box_select) {
-    // if(otherChartColor==true){
-    //     return
-    // }
     if(box_select==box){
         return "#FFFF00";
     }
@@ -181,7 +178,6 @@
         return colorLinear(btw_index);
   }
 
-  let otherChartColor;
 </script>
 
 <!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
@@ -209,7 +205,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                   height={chartBoxHeight}
                   on:mouseenter={() => {
                     box_num = box_list.indexOf(box);
-                    otherChartColor=true;
                     box_update(box_num);
                     
                   }}

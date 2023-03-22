@@ -232,7 +232,8 @@
                     y={yValueUpdate(box, index)}
                     width={sttChartBoxWidth}
                     height={sttChartBoxHeight}
-                    style="fill:{colorUpdate(box,box_select,i)}"
+                    visibility="visible"
+                    style="fill:{colorUpdate(box,box_select,i)};opacity:1"
                   />
                 {:else}
                   <rect
