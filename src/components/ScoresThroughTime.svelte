@@ -240,8 +240,8 @@
       <g id="ChartView">
         <text
           class="ChartHeading"
-          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
-          y={y_axis_y1 - 5 * y_label_offsetY}>Scores through-time(TT)</text
+          x={((btw_x2 - btw_x1) / 2.2) - y_label_offsetX}
+          y={y_axis_y1 - 15}>Scores through-time(TT)</text
         >
         <line
           class="axis"

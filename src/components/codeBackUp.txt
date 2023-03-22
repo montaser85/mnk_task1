@@ -224,3 +224,41 @@
           </text>
         {/if}
       </g>
+
+
+
+******************************************************
+
+{#if btw_arrays_taken.length == index + 1}
+              {#each btw_array as box}
+                <rect
+                  class="ChartBox {box_select == box
+                    ? 'this-box-selected'
+                    : 'this-box-not-selected'}"
+                  x={xValueUpdate(btw_array.indexOf(box))}
+                  y={yValueUpdate(box, index)}
+                  width={chartBoxWidth}
+                  height={chartBoxHeight}
+                  on:mouseenter={() => {
+                    box_num = box_list.indexOf(box);
+                    otherChartColor=true;
+                    box_update(box_num);
+                    
+                  }}
+                  on:mouseleave={() => {
+                    box_reupdate();
+                  }}
+                />
+              {/each}
+            {:else}
+              {#each btw_array as box, i}
+                <rect
+                  class="ChartPreviousBox"
+                  x={xValueUpdate(btw_array.indexOf(box))}
+                  y={yValueUpdate(box, index)}
+                  width={chartBoxWidth}
+                  height={chartBoxHeight}
+                  style="fill:{colorUpdate(index,otherChartColor)}"
+                />
+              {/each}
+            {/if}

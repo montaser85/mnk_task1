@@ -258,10 +258,9 @@
                     <text
                     class="ChartHeading"
                     x={(stt_x2 - stt_x1)/2.2-45 }
-                    y={stt_y1+3}>Scores on the-board(OTB)</text
+                    y={stt_y1-5}>Scores on the-board(OTB)</text
                   >
                 </g>
-
                 <!-- row lines-->
                 <g>
                     {#each row_names as row_name}

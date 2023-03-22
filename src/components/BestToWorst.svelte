@@ -170,9 +170,18 @@
     return score_value;
   }
 
-  function colorUpdate(btw_index) {
-    return colorLinear(btw_index);
+  function colorUpdate(btw_index,box,box_select) {
+    // if(otherChartColor==true){
+    //     return
+    // }
+    if(box_select==box){
+        return "#FFFF00";
+    }
+   else
+        return colorLinear(btw_index);
   }
+
+  let otherChartColor;
 </script>
 
 <!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
@@ -200,7 +209,9 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                   height={chartBoxHeight}
                   on:mouseenter={() => {
                     box_num = box_list.indexOf(box);
+                    otherChartColor=true;
                     box_update(box_num);
+                    
                   }}
                   on:mouseleave={() => {
                     box_reupdate();
@@ -208,16 +219,17 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                 />
               {/each}
             {:else}
-              {#each btw_array as box, i}
-                <rect
-                  class="ChartPreviousBox"
-                  x={xValueUpdate(btw_array.indexOf(box))}
-                  y={yValueUpdate(box, index)}
-                  width={chartBoxWidth}
-                  height={chartBoxHeight}
-                  style="fill:{colorUpdate(index)}"
-                />
-              {/each}
+                
+                    {#each btw_array as box, i}
+                        <rect
+                        class="ChartPreviousBox"
+                        x={xValueUpdate(btw_array.indexOf(box))}
+                        y={yValueUpdate(box, index)}
+                        width={chartBoxWidth}
+                        height={chartBoxHeight}
+                        style="fill:{colorUpdate(index,box,box_select)}"
+                        />
+                    {/each}
             {/if}
           {/each}
         {/if}
