@@ -3,27 +3,27 @@
     import { each } from "svelte/internal";
     import {
         box_select_store,
-    move_number,
-    first_array,
-    second_array,
-    goes_first,
-    updated_first_array,
-    updated_second_array,
-    winner,
-    max_move,
-    btw_arrays,
-    btw_scores_arrays,
+        move_number,
+        first_array,
+        second_array,
+        goes_first,
+        updated_first_array,
+        updated_second_array,
+        winner,
+        max_move,
+        btw_arrays,
+        btw_scores_arrays,
     } from "../store.js";
     let GB_X1 = 230;
     let GB_Y1 = 30;
     let boardBoxWidth = 70;
     let boardBoxHeight = 70;
 
-    let smallBoxWidth = 10;
+    let smallBoxWidth = 5;
     let smallBoxHeight = 3;
     let btw_arrays_taken = [];
-    let btw_scores_arrays_taken=[];
-    let i=0;
+    let btw_scores_arrays_taken = [];
+    let i = 0;
 
     let viewBoxWidth = 1100;
     let viewBoxHeight = 360;
@@ -122,29 +122,33 @@
     }
 
     $: {
-    if (move_num > 0) {
-      btw_arrays_taken = [];
-      btw_scores_arrays_taken=[];
-      let limit = Math.ceil(move_num / 2);
-      for (i = 0; i < limit; i++) {
-        btw_arrays_taken.push(btw_arrays[i]);
-        btw_scores_arrays_taken.push(btw_scores_arrays[i]);
-      }
+        if (move_num > 0) {
+            btw_arrays_taken = [];
+            btw_scores_arrays_taken = [];
+            let limit = Math.ceil(move_num / 2);
+            for (i = 0; i < limit; i++) {
+                btw_arrays_taken.push(btw_arrays[i]);
+                btw_scores_arrays_taken.push(btw_scores_arrays[i]);
+            }
+        }
+        // console.log(btw_scores_arrays_taken);
     }
-    console.log(btw_scores_arrays_taken); 
-  }
 
-  function xValueUpdate(btw_index) {
-    x_value = y_axis_x1 + 5 + btw_index * 2 * sttChartBoxWidth;
-    return x_value;
-  }
-  function yValueUpdate(box_char, btw_index) {
-    score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
-    score_value = PositionScaleNew(score_value);
-    return score_value;
-  }
+    let x_value;
+    let score_value;
 
-  PositionScaleNew = scaleLinear().domain([1, -1]).range([30, 100]);
+    function xValueUpdate(box_x,btw_index) {
+        PositionScaleNew = scaleLinear().domain([0, 9]).range([(box_x+5), (box_x+boardBoxWidth-5)]);
+        x_value = PositionScaleNew(btw_index);
+        return x_value;
+    }
+    function yValueUpdate(box_char, box_y, btw_index) {
+        score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
+        PositionScaleNew = scaleLinear().domain([1, -1]).range([(box_y+5), (box_y+boardBoxHeight-5)]);
+        score_value = PositionScaleNew(score_value);
+        return score_value;
+    }
+    // PositionScaleNew = scaleLinear().domain([1, -1]).range([30, 100]);
 </script>
 
 <main>
@@ -217,21 +221,23 @@
 
                 <!-- ******************** -->
                 <g class="smallBoxesAll">
-                    {#if move_num>0}
-                        {#each box_list as box,box_i}
-                            {(column_index = box_i % 9)}
-                            {(row_index = Math.floor(box_i / 9))}      
-                            {box_x=GB_X1 + column_index * boardBoxHeight}
-                            {box_y=GB_Y1 + row_index * boardBoxHeight}
-                            {console.log("In Box: "+box)}
-                            {#each btw_scores_arrays_taken as btw_scores_array,btw_index}
+                    {#if move_num > 0}
+                        {#each btw_scores_arrays_taken as btw_scores_array, btw_index}
+                            {#each box_list as box, box_i}
+                                {(column_index = box_i % 9)}
+                                {(row_index = Math.floor(box_i / 9))}
+                                {(box_x =
+                                    GB_X1 + column_index * boardBoxHeight)}
+                                {(box_y = GB_Y1 + row_index * boardBoxHeight)}
+                                <!-- {console.log("In Box: " + box_i)} -->
                                 <rect
-                                class="smallBox"
-                                x={box_x+ (btw_index*smallBoxWidth)}
-                                y={box_y+20}
-                                width={smallBoxWidth}
-                                height={smallBoxHeight}
-                            />
+                                    class="smallBox"
+                                    x={xValueUpdate(box_x,btw_index)}
+                                    y={yValueUpdate(box, box_y, btw_index)}
+                                    width={smallBoxWidth}
+                                    height={smallBoxHeight}
+                                />
+                                <!-- {console.log(btw_index)} -->
                             {/each}
                         {/each}
                     {/if}
@@ -244,12 +250,12 @@
                         <line
                             class="ThinMidLine"
                             x1={GB_X1}
-                            y1={GB_Y1 +
-                                boardBoxHeight / 2 +
+                            y1={GB_Y1 +5+
+                                ((boardBoxHeight-5) / 2) +
                                 row_names.indexOf(row_name) * boardBoxHeight}
                             x2={GB_X1 + 9 * boardBoxWidth}
-                            y2={GB_Y1 +
-                                boardBoxHeight / 2 +
+                            y2={GB_Y1+5+
+                                ((boardBoxHeight-5) / 2) +
                                 row_names.indexOf(row_name) * boardBoxHeight}
                         />
                         {#if row_names.indexOf(row_name) != 0}
