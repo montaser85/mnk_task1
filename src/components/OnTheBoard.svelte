@@ -137,14 +137,18 @@
     let x_value;
     let score_value;
 
-    function xValueUpdate(box_x,btw_index) {
-        PositionScaleNew = scaleLinear().domain([0, 9]).range([(box_x+5), (box_x+boardBoxWidth-5)]);
+    function xValueUpdate(box_x, btw_index) {
+        PositionScaleNew = scaleLinear()
+            .domain([0, 9])
+            .range([box_x + 5, box_x + boardBoxWidth - 5]);
         x_value = PositionScaleNew(btw_index);
         return x_value;
     }
     function yValueUpdate(box_char, box_y, btw_index) {
         score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
-        PositionScaleNew = scaleLinear().domain([1, -1]).range([(box_y+5), (box_y+boardBoxHeight-5)]);
+        PositionScaleNew = scaleLinear()
+            .domain([1, -1])
+            .range([box_y + 5, box_y + boardBoxHeight - 5]);
         score_value = PositionScaleNew(score_value);
         return score_value;
     }
@@ -232,7 +236,7 @@
                                 <!-- {console.log("In Box: " + box_i)} -->
                                 <rect
                                     class="smallBox"
-                                    x={xValueUpdate(box_x,btw_index)}
+                                    x={xValueUpdate(box_x, btw_index)}
                                     y={yValueUpdate(box, box_y, btw_index)}
                                     width={smallBoxWidth}
                                     height={smallBoxHeight}
@@ -250,12 +254,12 @@
                         <line
                             class="ThinMidLine"
                             x1={GB_X1}
-                            y1={GB_Y1 +5+
-                                ((boardBoxHeight-5) / 2) +
+                            y1={GB_Y1 +
+                                boardBoxHeight / 2 +
                                 row_names.indexOf(row_name) * boardBoxHeight}
                             x2={GB_X1 + 9 * boardBoxWidth}
-                            y2={GB_Y1+5+
-                                ((boardBoxHeight-5) / 2) +
+                            y2={GB_Y1 +
+                                boardBoxHeight / 2 +
                                 row_names.indexOf(row_name) * boardBoxHeight}
                         />
                         {#if row_names.indexOf(row_name) != 0}
