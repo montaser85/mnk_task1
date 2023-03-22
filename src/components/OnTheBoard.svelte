@@ -14,8 +14,8 @@
         btw_arrays,
         btw_scores_arrays,
     } from "../store.js";
-    let GB_X1 = 230;
-    let GB_Y1 = 30;
+    let GB_X1 = 260;
+    let GB_Y1 = 75;
     let boardBoxWidth = 70;
     let boardBoxHeight = 70;
 
@@ -24,9 +24,13 @@
     let btw_arrays_taken = [];
     let btw_scores_arrays_taken = [];
     let i = 0;
+    let stt_x1 = 80;
+    let stt_x2 = 1100;
+    let stt_y1 = 50;
+   
 
     let viewBoxWidth = 1100;
-    let viewBoxHeight = 360;
+    let viewBoxHeight = 390;
     let xScaleTicks = [];
     let xScaleNew;
     let boxArray = [];
@@ -224,6 +228,8 @@
                 {/each}
 
                 <!-- ******************** -->
+                
+
                 <g class="smallBoxesAll">
                     {#if move_num > 0}
                         {#each btw_scores_arrays_taken as btw_scores_array, btw_index}
@@ -247,6 +253,14 @@
                     {/if}
                 </g>
                 <!-- ********************* -->
+
+                <g>
+                    <text
+                    class="ChartHeading"
+                    x={(stt_x2 - stt_x1)/2.2-45 }
+                    y={stt_y1+3}>Scores on the-board(OTB)</text
+                  >
+                </g>
 
                 <!-- row lines-->
                 <g>
@@ -351,4 +365,8 @@
         stroke: #a81c1c;
         stroke-width: 1;
     }
+    .ChartHeading {
+    font-weight: 500;
+    font-size: 2em;
+  }
 </style>
