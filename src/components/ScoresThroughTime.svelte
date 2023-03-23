@@ -212,8 +212,6 @@
                 {/if}
               {/each}
             {:else}
-              {console.log("Array Length: " + btw_arrays_taken.length)}
-              {console.log(index + 1)}
               {#each btw_array as box, i}
                 {#if i == 0}
                   <rect

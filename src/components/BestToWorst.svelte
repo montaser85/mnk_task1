@@ -164,21 +164,24 @@
     x_value = y_axis_x1 + box_index * (y_axis_x1 / 3);
     return x_value;
   }
+
+  function xValueUpdate_new(box_char, btw_index) {
+    box_i = btw_scores_arrays_taken[btw_index].indexOf(box_char);
+    x_value = y_axis_x1 + box_i * (y_axis_x1 / 3);
+    return x_value;
+  }
+
   function yValueUpdate(box_char, btw_index) {
     score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
     score_value = PositionScaleNew(score_value);
     return score_value;
   }
 
-  function colorUpdate(btw_index,box,box_select) {
-    if(box_select==box){
-        return "#FFFF00";
-    }
-   else
-        return colorLinear(btw_index);
+  function colorUpdate(btw_index, box, box_select) {
+    if (box_select == box) {
+      return "#FFFF00";
+    } else return colorLinear(btw_index);
   }
-
-
 </script>
 
 <!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
@@ -194,10 +197,44 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
       <g class="btwBoxes">
         {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
-            {#if btw_arrays_taken.length == index + 1}
-              {#each btw_array as box}
+            {#if btw_arrays_taken.length != index + 1}
+              {#each btw_array as box, i}
                 <rect
-                  class="ChartBox {box_select!=null ? box_select == box? 'this-box-selected': 'this-box-not-selected':'pre-box'}"
+                  class="ChartPreviousBox {box_select != null
+                    ? box_select == box
+                      ? 'this-box-selected'
+                      : 'this-box-not-selected'
+                    : 'pre-box'}"
+                  x={xValueUpdate(btw_array.indexOf(box))}
+                  y={yValueUpdate(box, index)}
+                  width={chartBoxWidth}
+                  height={chartBoxHeight}
+                  style="fill:{colorUpdate(index, box, box_select)}"
+                />
+              {/each}
+            {:else}
+              {#each btw_array as box}
+                {#if box_select == box}
+                  {#each btw_arrays_taken as btw_array, index}
+                    {#if btw_arrays_taken.length != index + 1}
+                      <rect
+                        class="ChartPreviousHighlightBox"
+                        x={xValueUpdate(btw_array.indexOf(box))}
+                        y={yValueUpdate(box, index)}
+                        width={chartBoxWidth}
+                        height={chartBoxHeight}
+                        style="fill:yellow"
+                      />
+                    {/if}
+                  {/each}
+                {/if}
+
+                <rect
+                  class="ChartBox {box_select != null
+                    ? box_select == box
+                      ? 'this-box-selected'
+                      : 'this-box-not-selected'
+                    : 'pre-box'}"
                   x={xValueUpdate(btw_array.indexOf(box))}
                   y={yValueUpdate(box, index)}
                   width={chartBoxWidth}
@@ -205,25 +242,12 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                   on:mouseenter={() => {
                     box_num = box_list.indexOf(box);
                     box_update(box_num);
-                    
                   }}
                   on:mouseleave={() => {
                     box_reupdate();
                   }}
                 />
               {/each}
-            {:else}
-                
-                    {#each btw_array as box, i}
-                        <rect
-                        class="ChartPreviousBox {box_select!=null ? box_select == box? 'this-box-selected': 'this-box-not-selected':'pre-box'}"
-                        x={xValueUpdate(btw_array.indexOf(box))}
-                        y={yValueUpdate(box, index)}
-                        width={chartBoxWidth}
-                        height={chartBoxHeight}
-                        style="fill:{colorUpdate(index,box,box_select)}"
-                        />
-                    {/each}
             {/if}
           {/each}
         {/if}
@@ -373,7 +397,7 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     z-index: 100;
     opacity: 1;
   }
-  .ChartBox.pre-box{
+  .ChartBox.pre-box {
     fill: blue;
     stroke: black;
     stroke-width: 1;
@@ -403,6 +427,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     stroke: black;
     stroke-width: 1;
     z-index: 1;
-    opacity: 0.1;
+    opacity: 1;
   }
 </style>
