@@ -93,7 +93,6 @@
       AllMoves.push(second_array[(i - 1) / 2]);
     }
   }
-
   box_select_store.subscribe((data) => {
     box_select = data;
   });
@@ -103,18 +102,15 @@
   function box_reupdate() {
     box_select_store.set(null);
   }
-
   updated_first_array.subscribe((data) => {
     goes_first_array = data;
   });
   updated_second_array.subscribe((data) => {
     goes_second_array = data;
   });
-
   move_number.subscribe((data) => {
     move_num = data;
   });
-
   function move_increment() {
     move_number.update((n) => n + 1);
     BoxElementUpdate(move_num);
@@ -125,7 +121,6 @@
     BoxElementUpdate(move_num);
     next_move_update(move_num);
   }
-
   function next_move_update(move_num) {
     if (goes_first == "X") {
       if (move_num % 2 == 0) {
@@ -159,7 +154,6 @@
     suffix = AllMoves.indexOf(box_list[box]) + 1;
     return suffix;
   }
-
   let i = 0;
   function BoxElementUpdate(move_num) {
     let first_array_i = 0;
@@ -182,7 +176,6 @@
       items = [];
       return [goes_first_array, ...items];
     });
-
     updated_second_array.update((items) => {
       items = [];
       return [goes_second_array, ...items];
@@ -552,7 +545,6 @@
   image.imagebox.not-clickable {
     opacity: 0.5;
   }
-
   image.XSymbol {
     opacity: 1;
   }

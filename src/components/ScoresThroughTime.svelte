@@ -166,7 +166,88 @@
       viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
       preserveAspectRatio="xMinYMid meet"
     >
-      <g class="sttBoxes">
+     
+     <!-- draing the axis lines -->
+     <g id="ChartView">
+      <text
+        class="ChartHeading"
+        x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
+        y={y_axis_y1 - 15}>Scores through-time(TT)</text
+      >
+      <line
+        class="axis"
+        x1={y_axis_x1}
+        y1={y_axis_y1}
+        x2={y_axis_x2}
+        y2={y_axis_y2}
+      />
+      <!-- Time line -->
+      <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
+      <line
+        class="axis"
+        x1={arrow3_x1}
+        y1={arrow3_y1}
+        x2={arrow3_x2}
+        y2={arrow3_y2}
+      />
+      <line
+        class="axis"
+        x1={arrow4_x1}
+        y1={arrow4_y1}
+        x2={arrow4_x2}
+        y2={arrow4_y2}
+      />
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY}>Win</text
+      >
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
+      >
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
+      >
+      <text
+        class="y_labels"
+        x={btw_x1 + (btw_x2 - btw_x1) / 2}
+        y={btw_y2 + 10 * y_label_offsetY}>Time</text
+      >
+      {#each xScaleTicks as tk}
+        {(xIndex = xScaleTicks.indexOf(tk))}
+        {#if xIndex % 5 != 0}
+          <line
+            class="ThinLine"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {:else if xIndex == 10}
+          <line
+            class="axis"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {:else if xIndex == 5 || xIndex == 15}
+          <line
+            class="ThinAxis"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {/if}
+      {/each}
+    </g>
+    <!-- drawing the boxes -->
+    <g class="sttBoxes">
         {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
             {#if btw_arrays_taken.length != index + 1}
@@ -272,84 +353,8 @@
           {/each}
         {/if}
       </g>
-      <g id="ChartView">
-        <text
-          class="ChartHeading"
-          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
-          y={y_axis_y1 - 15}>Scores through-time(TT)</text
-        >
-        <line
-          class="axis"
-          x1={y_axis_x1}
-          y1={y_axis_y1}
-          x2={y_axis_x2}
-          y2={y_axis_y2}
-        />
-        <!-- Time line -->
-        <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
-        <line
-          class="axis"
-          x1={arrow3_x1}
-          y1={arrow3_y1}
-          x2={arrow3_x2}
-          y2={arrow3_y2}
-        />
-        <line
-          class="axis"
-          x1={arrow4_x1}
-          y1={arrow4_y1}
-          x2={arrow4_x2}
-          y2={arrow4_y2}
-        />
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY}>Win</text
-        >
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
-        >
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
-        >
-        <text
-          class="y_labels"
-          x={btw_x1 + (btw_x2 - btw_x1) / 2}
-          y={btw_y2 + 10 * y_label_offsetY}>Time</text
-        >
-        {#each xScaleTicks as tk}
-          {(xIndex = xScaleTicks.indexOf(tk))}
-          {#if xIndex % 5 != 0}
-            <line
-              class="ThinLine"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {:else if xIndex == 10}
-            <line
-              class="axis"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {:else if xIndex == 5 || xIndex == 15}
-            <line
-              class="ThinAxis"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {/if}
-        {/each}
-      </g>
+
+     
 
       <use xlink:href="#top-current" />
       <!-- <use xlink:href="#topPrevious" /> -->

@@ -18,7 +18,6 @@
     let GB_Y1 = 75;
     let boardBoxWidth = 70;
     let boardBoxHeight = 70;
-
     let smallBoxWidth = 5;
     let smallBoxHeight = 3;
     let btw_arrays_taken = [];
@@ -28,7 +27,6 @@
     let stt_x2 = 1100;
     let stt_y1 = 50;
    
-
     let viewBoxWidth = 1100;
     let viewBoxHeight = 390;
     let xScaleTicks = [];
@@ -110,7 +108,6 @@
     move_number.subscribe((data) => {
         move_num = data;
     });
-
     let symbol;
     function SymbolName(box) {
         if ((goes_first == "X") & first_moves.includes(box_list[box])) {
@@ -124,7 +121,6 @@
         }
         return symbol;
     }
-
     $: {
         if (move_num > 0) {
             btw_arrays_taken = [];
@@ -137,10 +133,8 @@
         }
         // console.log(btw_scores_arrays_taken);
     }
-
     let x_value;
     let score_value;
-
     function xValueUpdate(box_x, btw_index) {
         PositionScaleNew = scaleLinear()
             .domain([0, 9])

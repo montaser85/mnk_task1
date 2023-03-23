@@ -194,7 +194,106 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
       height="100%"
       viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
     >
-      <g class="btwBoxes">
+     <!-- Drawing the axis lines-->
+    <g id="ChartView">
+      <text
+        class="ChartHeading"
+        x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
+        y={y_axis_y1 - 5 * y_label_offsetY}>Scores best-to-worst (BTW)</text
+      >
+      <line
+        class="axis"
+        x1={y_axis_x1}
+        y1={y_axis_y1}
+        x2={y_axis_x2}
+        y2={y_axis_y2}
+      />
+      <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
+      <line
+        class="axis"
+        x1={arrow1_x1}
+        y1={arrow1_y1}
+        x2={arrow1_x2}
+        y2={arrow1_y2}
+      />
+      <line
+        class="axis"
+        x1={arrow2_x1}
+        y1={arrow2_y1}
+        x2={arrow2_x2}
+        y2={arrow2_y2}
+      />
+      <line
+        class="axis"
+        x1={arrow3_x1}
+        y1={arrow3_y1}
+        x2={arrow3_x2}
+        y2={arrow3_y2}
+      />
+      <line
+        class="axis"
+        x1={arrow4_x1}
+        y1={arrow4_y1}
+        x2={arrow4_x2}
+        y2={arrow4_y2}
+      />
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY}>Win</text
+      >
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
+      >
+      <text
+        class="y_labels"
+        x={y_axis_x1 - y_label_offsetX - 15}
+        y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
+      >
+      <text
+        class="y_labels"
+        x={btw_x1 - y_label_offsetX}
+        y={btw_y1 + 10 * y_label_offsetY}>Best Moves</text
+      >
+      <text
+        class="y_labels"
+        x={btw_x2 - 3 * y_label_offsetX}
+        y={btw_y2 + 10 * y_label_offsetY}>Worst Moves</text
+      >
+      {#each xScaleTicks as tk}
+        {(xIndex = xScaleTicks.indexOf(tk))}
+        {#if xIndex % 5 != 0}
+          <line
+            class="ThinLine"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {:else if xIndex == 10}
+          <line
+            class="axis"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {:else if xIndex == 5 || xIndex == 15}
+          <line
+            class="ThinAxis"
+            x1={btw_x1}
+            y1={y_axis_y1 + xIndex * y_diff}
+            x2={btw_x2}
+            y2={y_axis_y1 + xIndex * y_diff}
+          />
+        {/if}
+      {/each}
+    </g>
+    
+    <!-- ******the Boxes************* -->
+    <g class="btwBoxes">
         {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
             {#if btw_arrays_taken.length != index + 1}
@@ -253,8 +352,8 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
           {/each}
         {/if}
       </g>
-      <!-- Drawing the axis lines-->
-
+    
+      <!-- bring the highlighted box to the front -->
       {#if move_num > 0}
       {#each btw_arrays_taken as btw_array, index}
         {#if btw_arrays_taken.length != index + 1}
@@ -264,106 +363,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
         {/if}
       {/each}
       {/if}
-
-
-      <g id="ChartView">
-        <text
-          class="ChartHeading"
-          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
-          y={y_axis_y1 - 5 * y_label_offsetY}>Scores best-to-worst (BTW)</text
-        >
-        <line
-          class="axis"
-          x1={y_axis_x1}
-          y1={y_axis_y1}
-          x2={y_axis_x2}
-          y2={y_axis_y2}
-        />
-        <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
-        <line
-          class="axis"
-          x1={arrow1_x1}
-          y1={arrow1_y1}
-          x2={arrow1_x2}
-          y2={arrow1_y2}
-        />
-        <line
-          class="axis"
-          x1={arrow2_x1}
-          y1={arrow2_y1}
-          x2={arrow2_x2}
-          y2={arrow2_y2}
-        />
-        <line
-          class="axis"
-          x1={arrow3_x1}
-          y1={arrow3_y1}
-          x2={arrow3_x2}
-          y2={arrow3_y2}
-        />
-        <line
-          class="axis"
-          x1={arrow4_x1}
-          y1={arrow4_y1}
-          x2={arrow4_x2}
-          y2={arrow4_y2}
-        />
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY}>Win</text
-        >
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
-        >
-        <text
-          class="y_labels"
-          x={y_axis_x1 - y_label_offsetX - 15}
-          y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
-        >
-        <text
-          class="y_labels"
-          x={btw_x1 - y_label_offsetX}
-          y={btw_y1 + 10 * y_label_offsetY}>Best Moves</text
-        >
-        <text
-          class="y_labels"
-          x={btw_x2 - 3 * y_label_offsetX}
-          y={btw_y2 + 10 * y_label_offsetY}>Worst Moves</text
-        >
-        {#each xScaleTicks as tk}
-          {(xIndex = xScaleTicks.indexOf(tk))}
-          {#if xIndex % 5 != 0}
-            <line
-              class="ThinLine"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {:else if xIndex == 10}
-            <line
-              class="axis"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {:else if xIndex == 5 || xIndex == 15}
-            <line
-              class="ThinAxis"
-              x1={btw_x1}
-              y1={y_axis_y1 + xIndex * y_diff}
-              x2={btw_x2}
-              y2={y_axis_y1 + xIndex * y_diff}
-            />
-          {/if}
-        {/each}
-      </g>
-
-      
     </svg>
   </div>
 </main>
