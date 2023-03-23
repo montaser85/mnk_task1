@@ -28,7 +28,6 @@ else{
 }
 winner=data_json.board_data[0].winner;
 max_move=data_json.board_data[0].max_moves;
-
 btw_arrays_length=Math.ceil(max_move/2);
 let i=0;
 let btw_i=1;
@@ -38,11 +37,9 @@ for(i=0; i<btw_arrays_length;i++){
 }
 btw_i=1;
 for(i=0; i<btw_arrays_length;i++){
-    btw_scores_arrays[i]=data_json.board_data[0]["coordinates"]["BTW-"+btw_i]
+    btw_scores_arrays[i]=data_json.board_data[0]["win_values"]["BTW-"+btw_i]
     btw_i=btw_i+2;
 }
-
-
 
 export {box_select_store}
 export {move_number}

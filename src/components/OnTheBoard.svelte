@@ -136,7 +136,6 @@
         btw_scores_arrays_taken.push(btw_scores_arrays[i]);
       }
     }
-    // console.log(btw_scores_arrays_taken);
   }
   let x_value;
   let score_value;
@@ -155,7 +154,7 @@
     score_value = PositionScaleNew(score_value);
     return score_value;
   }
-  // PositionScaleNew = scaleLinear().domain([1, -1]).range([30, 100]);
+  // PositionScaleNew = scaleLinear().domain([1, -1]).range([y_axis_y1, y_axis_y2]);
 </script>
 
 <main>
@@ -236,7 +235,6 @@
                 {(row_index = Math.floor(box_i / 9))}
                 {(box_x = GB_X1 + column_index * boardBoxHeight)}
                 {(box_y = GB_Y1 + row_index * boardBoxHeight)}
-                <!-- {console.log("In Box: " + box_i)} -->
                 <rect
                   class="smallBox"
                   x={xValueUpdate(box_x, btw_index)}
@@ -244,13 +242,10 @@
                   width={smallBoxWidth}
                   height={smallBoxHeight}
                 />
-                <!-- {console.log(btw_index)} -->
               {/each}
             {/each}
           {/if}
         </g>
-        <!-- ********************* -->
-
         <g>
           <text
             class="ChartHeading"

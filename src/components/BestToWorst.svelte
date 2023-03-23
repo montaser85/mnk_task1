@@ -1,7 +1,6 @@
 <script>
   import { scaleLinear, scaleOrdinal, scaleSequential } from "d3-scale";
   import { schemeCategory10, interpolateGreys } from "d3-scale-chromatic";
-
   import {
     box_select_store,
     move_number,
@@ -23,27 +22,22 @@
   let y_axis_y1 = 50;
   let y_axis_y2 = 320;
   let y_diff = (y_axis_y2 - y_axis_y1) / 20;
-
   let btw_x1 = 80;
   let btw_x2 = 1100;
   let btw_y1 = 340;
   let btw_y2 = 340;
-
   let arrow1_x1 = btw_x1;
   let arrow1_x2 = btw_x1 + 10;
   let arrow1_y1 = btw_y1;
   let arrow1_y2 = btw_y1 - 10;
-
   let arrow2_x1 = btw_x1;
   let arrow2_x2 = btw_x1 + 10;
   let arrow2_y1 = btw_y1;
   let arrow2_y2 = btw_y1 + 10;
-
   let arrow3_x1 = btw_x2;
   let arrow3_x2 = btw_x2 - 10;
   let arrow3_y1 = btw_y1;
   let arrow3_y2 = btw_y1 + 10;
-
   let arrow4_x1 = btw_x2;
   let arrow4_x2 = btw_x2 - 10;
   let arrow4_y1 = btw_y1;
@@ -114,7 +108,6 @@
   let colorScale;
   let colorLinear;
   colorScale = scaleSequential().domain([8, 0]).interpolator(interpolateGreys);
-
   colorLinear = scaleOrdinal()
     .domain([10, 0])
     .range([
@@ -129,22 +122,21 @@
       "#333333",
       "#1A1A1A",
     ]);
-
-  PositionScaleNew = scaleLinear().domain([1, -1]).range([50, 320]);
+  // defining the scale linear function for win percentage value
+  PositionScaleNew = scaleLinear().domain([1, -1]).range([y_axis_y1, y_axis_y2]);
   move_number.subscribe((data) => {
     move_num = data;
   });
-
+  //   updating the moves and scores arrays
   $: {
     if (move_num > 0) {
       btw_arrays_taken = [];
       btw_scores_arrays_taken = [];
       let limit;
-      if (goes_first=="X"){
-        limit= Math.ceil(move_num / 2);
-      }
-      else if (goes_first=="O"){
-        limit= Math.floor(move_num / 2);
+      if (goes_first == "X") {
+        limit = Math.ceil(move_num / 2);
+      } else if (goes_first == "O") {
+        limit = Math.floor(move_num / 2);
       }
       for (i = 0; i < limit; i++) {
         btw_arrays_taken.push(btw_arrays[i]);
@@ -165,24 +157,20 @@
   function box_reupdate() {
     box_select_store.set(null);
   }
-
   function xValueUpdate(box_index) {
     x_value = y_axis_x1 + box_index * (y_axis_x1 / 3);
     return x_value;
   }
-
   function xValueUpdate_new(box_char, btw_index) {
     box_i = btw_scores_arrays_taken[btw_index].indexOf(box_char);
     x_value = y_axis_x1 + box_i * (y_axis_x1 / 3);
     return x_value;
   }
-
   function yValueUpdate(box_char, btw_index) {
     score_value = btw_scores_arrays_taken[btw_index][box_char][btw_index];
     score_value = PositionScaleNew(score_value);
     return score_value;
   }
-
   function colorUpdate(btw_index, box, box_select) {
     if (box_select == box) {
       return "#FFFF00";
@@ -190,8 +178,6 @@
   }
 </script>
 
-<!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
-y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
 <main>
   <div id="chart">
     <svg
@@ -200,107 +186,107 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
       height="100%"
       viewBox="0 0 {viewBoxWidth} {viewBoxHeight}"
     >
-     <!-- Drawing the axis lines-->
-    <g id="ChartView">
-      <text
-        class="ChartHeading"
-        x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
-        y={y_axis_y1 - 5 * y_label_offsetY}>Scores best-to-worst (BTW)</text
-      >
-      <line
-        class="axis"
-        x1={y_axis_x1}
-        y1={y_axis_y1}
-        x2={y_axis_x2}
-        y2={y_axis_y2}
-      />
-      <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
-      <line
-        class="axis"
-        x1={arrow1_x1}
-        y1={arrow1_y1}
-        x2={arrow1_x2}
-        y2={arrow1_y2}
-      />
-      <line
-        class="axis"
-        x1={arrow2_x1}
-        y1={arrow2_y1}
-        x2={arrow2_x2}
-        y2={arrow2_y2}
-      />
-      <line
-        class="axis"
-        x1={arrow3_x1}
-        y1={arrow3_y1}
-        x2={arrow3_x2}
-        y2={arrow3_y2}
-      />
-      <line
-        class="axis"
-        x1={arrow4_x1}
-        y1={arrow4_y1}
-        x2={arrow4_x2}
-        y2={arrow4_y2}
-      />
-      <text
-        class="y_labels"
-        x={y_axis_x1 - y_label_offsetX - 15}
-        y={y_axis_y1 + y_label_offsetY}>Win</text
-      >
-      <text
-        class="y_labels"
-        x={y_axis_x1 - y_label_offsetX - 15}
-        y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
-      >
-      <text
-        class="y_labels"
-        x={y_axis_x1 - y_label_offsetX - 15}
-        y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
-      >
-      <text
-        class="y_labels"
-        x={btw_x1 - y_label_offsetX}
-        y={btw_y1 + 10 * y_label_offsetY}>Best Moves</text
-      >
-      <text
-        class="y_labels"
-        x={btw_x2 - 3 * y_label_offsetX}
-        y={btw_y2 + 10 * y_label_offsetY}>Worst Moves</text
-      >
-      {#each xScaleTicks as tk}
-        {(xIndex = xScaleTicks.indexOf(tk))}
-        {#if xIndex % 5 != 0}
-          <line
-            class="ThinLine"
-            x1={btw_x1}
-            y1={y_axis_y1 + xIndex * y_diff}
-            x2={btw_x2}
-            y2={y_axis_y1 + xIndex * y_diff}
-          />
-        {:else if xIndex == 10}
-          <line
-            class="axis"
-            x1={btw_x1}
-            y1={y_axis_y1 + xIndex * y_diff}
-            x2={btw_x2}
-            y2={y_axis_y1 + xIndex * y_diff}
-          />
-        {:else if xIndex == 5 || xIndex == 15}
-          <line
-            class="ThinAxis"
-            x1={btw_x1}
-            y1={y_axis_y1 + xIndex * y_diff}
-            x2={btw_x2}
-            y2={y_axis_y1 + xIndex * y_diff}
-          />
-        {/if}
-      {/each}
-    </g>
-    
-    <!-- ******the Boxes************* -->
-    <g class="btwBoxes">
-        {#if move_num >0}
+      <!-- Drawing the axis lines-->
+      <g id="ChartView">
+        <text
+          class="ChartHeading"
+          x={(btw_x2 - btw_x1) / 2.2 - y_label_offsetX}
+          y={y_axis_y1 - 5 * y_label_offsetY}>Scores best-to-worst (BTW)</text
+        >
+        <line
+          class="axis"
+          x1={y_axis_x1}
+          y1={y_axis_y1}
+          x2={y_axis_x2}
+          y2={y_axis_y2}
+        />
+        <line class="axis" x1={btw_x1} y1={btw_y1} x2={btw_x2} y2={btw_y2} />
+        <line
+          class="axis"
+          x1={arrow1_x1}
+          y1={arrow1_y1}
+          x2={arrow1_x2}
+          y2={arrow1_y2}
+        />
+        <line
+          class="axis"
+          x1={arrow2_x1}
+          y1={arrow2_y1}
+          x2={arrow2_x2}
+          y2={arrow2_y2}
+        />
+        <line
+          class="axis"
+          x1={arrow3_x1}
+          y1={arrow3_y1}
+          x2={arrow3_x2}
+          y2={arrow3_y2}
+        />
+        <line
+          class="axis"
+          x1={arrow4_x1}
+          y1={arrow4_y1}
+          x2={arrow4_x2}
+          y2={arrow4_y2}
+        />
+        <text
+          class="y_labels"
+          x={y_axis_x1 - y_label_offsetX - 15}
+          y={y_axis_y1 + y_label_offsetY}>Win</text
+        >
+        <text
+          class="y_labels"
+          x={y_axis_x1 - y_label_offsetX - 15}
+          y={y_axis_y1 + y_label_offsetY + y_diff * 10}>Draw</text
+        >
+        <text
+          class="y_labels"
+          x={y_axis_x1 - y_label_offsetX - 15}
+          y={y_axis_y1 + y_label_offsetY + y_diff * 20}>Loss</text
+        >
+        <text
+          class="y_labels"
+          x={btw_x1 - y_label_offsetX}
+          y={btw_y1 + 10 * y_label_offsetY}>Best Moves</text
+        >
+        <text
+          class="y_labels"
+          x={btw_x2 - 3 * y_label_offsetX}
+          y={btw_y2 + 10 * y_label_offsetY}>Worst Moves</text
+        >
+        {#each xScaleTicks as tk}
+          {(xIndex = xScaleTicks.indexOf(tk))}
+          {#if xIndex % 5 != 0}
+            <line
+              class="ThinLine"
+              x1={btw_x1}
+              y1={y_axis_y1 + xIndex * y_diff}
+              x2={btw_x2}
+              y2={y_axis_y1 + xIndex * y_diff}
+            />
+          {:else if xIndex == 10}
+            <line
+              class="axis"
+              x1={btw_x1}
+              y1={y_axis_y1 + xIndex * y_diff}
+              x2={btw_x2}
+              y2={y_axis_y1 + xIndex * y_diff}
+            />
+          {:else if xIndex == 5 || xIndex == 15}
+            <line
+              class="ThinAxis"
+              x1={btw_x1}
+              y1={y_axis_y1 + xIndex * y_diff}
+              x2={btw_x2}
+              y2={y_axis_y1 + xIndex * y_diff}
+            />
+          {/if}
+        {/each}
+      </g>
+
+      <!-- ******the Boxes************* -->
+      <g class="btwBoxes">
+        {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
             {#if btw_arrays_taken.length != index + 1}
               {#each btw_array as box, i}
@@ -322,16 +308,16 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                 {#if box_select == box}
                   {#each btw_arrays_taken as btw_array, index}
                     <!-- {#if btw_arrays_taken.length != index + 1} -->
-                      <g id={"previous-btw-high-"+index}>
-                        <rect
-                          class="ChartPreviousHighlightBox"
-                          x={xValueUpdate(btw_array.indexOf(box))}
-                          y={yValueUpdate(box, index)}
-                          width={chartBoxWidth}
-                          height={chartBoxHeight}
-                          style="fill:yellow"
-                        />
-                      </g>
+                    <g id={"previous-btw-high-" + index}>
+                      <rect
+                        class="ChartPreviousHighlightBox"
+                        x={xValueUpdate(btw_array.indexOf(box))}
+                        y={yValueUpdate(box, index)}
+                        width={chartBoxWidth}
+                        height={chartBoxHeight}
+                        style="fill:yellow"
+                      />
+                    </g>
                     <!-- {/if} -->
                   {/each}
                 {/if}
@@ -358,16 +344,16 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
           {/each}
         {/if}
       </g>
-    
-      <!-- bring the highlighted box to the front -->
+
+      <!-- bringing the highlighted box to the front -->
       {#if move_num > 0}
-      {#each btw_arrays_taken as btw_array, index}
-        {#if btw_arrays_taken.length != index + 1}
-          <use xlink:href={"#previous-btw-high-" + index} />
-        {:else}
-          <use xlink:href={"#previous-btw-high-" + index} />
-        {/if}
-      {/each}
+        {#each btw_arrays_taken as btw_array, index}
+          {#if btw_arrays_taken.length != index + 1}
+            <use xlink:href={"#previous-btw-high-" + index} />
+          {:else}
+            <use xlink:href={"#previous-btw-high-" + index} />
+          {/if}
+        {/each}
       {/if}
     </svg>
   </div>
@@ -414,42 +400,36 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     fill: yellow;
     stroke: black;
     stroke-width: 1;
-    z-index: 100;
     opacity: 1;
   }
   .ChartBox.pre-box {
     fill: blue;
     stroke: black;
     stroke-width: 1;
-    z-index: 100;
     opacity: 1;
   }
   .ChartPreviousBox.this-box-selected {
     stroke: black;
     stroke-width: 1;
-    z-index: 100;
     opacity: 1;
   }
   .ChartPreviousBox.pre-box {
     stroke: black;
     stroke-width: 1;
-    z-index: 1;
     opacity: 1;
   }
   .ChartBox.this-box-not-selected {
     fill: blue;
     stroke: black;
     stroke-width: 1;
-    z-index: 1;
     opacity: 1;
   }
   .ChartPreviousBox.this-box-not-selected {
     stroke: black;
     stroke-width: 1;
-    z-index: 1;
     opacity: 1;
   }
-  .ChartPreviousHighlightBox{
+  .ChartPreviousHighlightBox {
     stroke: black;
     stroke-width: 1;
   }
