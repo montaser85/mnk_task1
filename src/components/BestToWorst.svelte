@@ -365,13 +365,7 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     font-weight: 500;
     font-size: 2em;
   }
-  .ChartBox.this-box-not-selected {
-    fill: blue;
-    stroke: black;
-    stroke-width: 1;
-    z-index: 1;
-    opacity: 0.1;
-  }
+
   .ChartBox.this-box-selected {
     fill: yellow;
     stroke: black;
@@ -386,13 +380,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     z-index: 100;
     opacity: 1;
   }
-
-  .ChartPreviousBox.this-box-not-selected {
-    stroke: black;
-    stroke-width: 1;
-    z-index: 1;
-    opacity: 0.1;
-  }
   .ChartPreviousBox.this-box-selected {
     stroke: black;
     stroke-width: 1;
@@ -404,5 +391,18 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     stroke-width: 1;
     z-index: 1;
     opacity: 1;
+  }
+  .ChartBox.this-box-not-selected {
+    fill: blue;
+    stroke: black;
+    stroke-width: 1;
+    z-index: 1;
+    opacity: 1;
+  }
+  .ChartPreviousBox.this-box-not-selected {
+    stroke: black;
+    stroke-width: 1;
+    z-index: 1;
+    opacity: 0.1;
   }
 </style>
