@@ -1,3 +1,20 @@
+ Deployment info:
+
+ Make sure you change absolute paths to relative paths
+In /public/index.html, App.svelte (json file)
+e.g., Replace “/bundle/bundle.js” with “./bundle/bundle.js”
+Same thing for bundle.css, global.css, census2000.json
+Run "npm run build" (just like you did "npm run dev")
+Create a new branch named gh-pages
+You can do that from github.com
+Or "git checkout --orphan gh-pages"
+Remove all files in the branch if there is an
+Copy and paste all files in /public/ in your main branch into the root folder of the gh-pages branch.
+The gh-pages branch should not have a folder named "public". The root should have only: index.html, global.css, build folder, and static folder.
+From your repo on github.com, go to Settings -> Pages -> Source, and select the "gh-pages" branch and save it.
+The URL will be shown in that page (https://div-classroom.github.io/visual-analytics-w4-2-svelte-{your username}/). Click it to see if it works. It may take a few minutes to be activated. 
+ 
+ 
  **********************************************************************************
  Detailed Logic For showing the GameBoard components:
 
