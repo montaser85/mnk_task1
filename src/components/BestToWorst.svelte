@@ -178,6 +178,7 @@
         return colorLinear(btw_index);
   }
 
+
 </script>
 
 <!-- x={y_axis_x1 + (btw_array.indexOf(box) * chartBoxWidth)}
@@ -196,9 +197,7 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
             {#if btw_arrays_taken.length == index + 1}
               {#each btw_array as box}
                 <rect
-                  class="ChartBox {box_select == box
-                    ? 'this-box-selected'
-                    : 'this-box-not-selected'}"
+                  class="ChartBox {box_select!=null ? box_select == box? 'this-box-selected': 'this-box-not-selected':'pre-box'}"
                   x={xValueUpdate(btw_array.indexOf(box))}
                   y={yValueUpdate(box, index)}
                   width={chartBoxWidth}
@@ -217,7 +216,7 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                 
                     {#each btw_array as box, i}
                         <rect
-                        class="ChartPreviousBox"
+                        class="ChartPreviousBox {box_select!=null ? box_select == box? 'this-box-selected': 'this-box-not-selected':'pre-box'}"
                         x={xValueUpdate(btw_array.indexOf(box))}
                         y={yValueUpdate(box, index)}
                         width={chartBoxWidth}
@@ -370,16 +369,40 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     fill: blue;
     stroke: black;
     stroke-width: 1;
+    z-index: 1;
+    opacity: 0.1;
   }
   .ChartBox.this-box-selected {
     fill: yellow;
     stroke: black;
     stroke-width: 1;
+    z-index: 100;
+    opacity: 1;
   }
-
-  .ChartPreviousBox {
-    /* fill: gray; */
+  .ChartBox.pre-box{
+    fill: blue;
     stroke: black;
     stroke-width: 1;
+    z-index: 100;
+    opacity: 1;
+  }
+
+  .ChartPreviousBox.this-box-not-selected {
+    stroke: black;
+    stroke-width: 1;
+    z-index: 1;
+    opacity: 0.1;
+  }
+  .ChartPreviousBox.this-box-selected {
+    stroke: black;
+    stroke-width: 1;
+    z-index: 100;
+    opacity: 1;
+  }
+  .ChartPreviousBox.pre-box {
+    stroke: black;
+    stroke-width: 1;
+    z-index: 1;
+    opacity: 1;
   }
 </style>
