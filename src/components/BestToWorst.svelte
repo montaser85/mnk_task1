@@ -216,16 +216,18 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
               {#each btw_array as box}
                 {#if box_select == box}
                   {#each btw_arrays_taken as btw_array, index}
-                    {#if btw_arrays_taken.length != index + 1}
-                      <rect
-                        class="ChartPreviousHighlightBox"
-                        x={xValueUpdate(btw_array.indexOf(box))}
-                        y={yValueUpdate(box, index)}
-                        width={chartBoxWidth}
-                        height={chartBoxHeight}
-                        style="fill:yellow"
-                      />
-                    {/if}
+                    <!-- {#if btw_arrays_taken.length != index + 1} -->
+                      <g id={"previous-btw-high-"+index}>
+                        <rect
+                          class="ChartPreviousHighlightBox"
+                          x={xValueUpdate(btw_array.indexOf(box))}
+                          y={yValueUpdate(box, index)}
+                          width={chartBoxWidth}
+                          height={chartBoxHeight}
+                          style="fill:yellow"
+                        />
+                      </g>
+                    <!-- {/if} -->
                   {/each}
                 {/if}
                 <rect
@@ -252,6 +254,18 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
         {/if}
       </g>
       <!-- Drawing the axis lines-->
+
+      {#if move_num > 0}
+      {#each btw_arrays_taken as btw_array, index}
+        {#if btw_arrays_taken.length != index + 1}
+          <use xlink:href={"#previous-btw-high-" + index} />
+        {:else}
+          <use xlink:href={"#previous-btw-high-" + index} />
+        {/if}
+      {/each}
+      {/if}
+
+
       <g id="ChartView">
         <text
           class="ChartHeading"
@@ -348,6 +362,8 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
           {/if}
         {/each}
       </g>
+
+      
     </svg>
   </div>
 </main>
@@ -427,5 +443,9 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
     stroke-width: 1;
     z-index: 1;
     opacity: 1;
+  }
+  .ChartPreviousHighlightBox{
+    stroke: black;
+    stroke-width: 1;
   }
 </style>

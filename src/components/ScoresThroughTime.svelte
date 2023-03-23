@@ -172,22 +172,20 @@
             {#if btw_arrays_taken.length != index + 1}
               {#each btw_array as box, i}
                 {#if i == 0}
-
-                <g id={"top-previous-"+index}>
-                  <rect
-                    class="ChartPreviousBox {box_select != null
-                      ? box_select == box
-                        ? 'this-prev-top-box-selected'
-                        : 'this-prev-top-box-not-selected'
-                      : 'prev-top-pre-box'}"
-                    x={xValueUpdate(index)}
-                    y={yValueUpdate(box, index)}
-                    width={sttChartBoxWidth}
-                    height={sttChartBoxHeight}
-                    style="fill:{colorUpdate(box, box_select, i)}"
-                  />
-                </g>
-             
+                  <g id={"top-previous-" + index}>
+                    <rect
+                      class="ChartPreviousBox {box_select != null
+                        ? box_select == box
+                          ? 'this-prev-top-box-selected'
+                          : 'this-prev-top-box-not-selected'
+                        : 'prev-top-pre-box'}"
+                      x={xValueUpdate(index)}
+                      y={yValueUpdate(box, index)}
+                      width={sttChartBoxWidth}
+                      height={sttChartBoxHeight}
+                      style="fill:{colorUpdate(box, box_select, i)}"
+                    />
+                  </g>
                 {:else}
                   <rect
                     class="ChartPreviousBox {box_select != null
@@ -206,56 +204,62 @@
             {:else}
               {#each btw_array as box, i}
                 {#if i == 0}
-                  <rect
-                    class="ChartBox {box_select != null
-                      ? box_select == box
-                        ? 'this-top-box-selected'
-                        : 'this-top-box-not-selected'
-                      : 'top-pre-box'}"
-                    x={xValueUpdate(index)}
-                    y={yValueUpdate(box, index)}
-                    width={sttChartBoxWidth}
-                    height={sttChartBoxHeight}
-                    on:mouseenter={() => {
-                      box_num = box_list.indexOf(box);
-                      box_update(box_num);
-                    }}
-                    on:mouseleave={() => {
-                      box_reupdate();
-                    }}
-                  />
+                  <g id="top-current">
+                    <rect
+                      class="ChartBox {box_select != null
+                        ? box_select == box
+                          ? 'this-top-box-selected'
+                          : 'this-top-box-not-selected'
+                        : 'top-pre-box'}"
+                      x={xValueUpdate(index)}
+                      y={yValueUpdate(box, index)}
+                      width={sttChartBoxWidth}
+                      height={sttChartBoxHeight}
+                      on:mouseenter={() => {
+                        box_num = box_list.indexOf(box);
+                        box_update(box_num);
+                      }}
+                      on:mouseleave={() => {
+                        box_reupdate();
+                      }}
+                    />
+                  </g>
                 {:else}
-                  <rect
-                    class="ChartBox {box_select != null
-                      ? box_select == box
-                        ? 'this-box-selected'
-                        : 'this-box-not-selected'
-                      : 'pre-box'}"
-                    x={xValueUpdate(index)}
-                    y={yValueUpdate(box, index)}
-                    width={sttChartBoxWidth}
-                    height={sttChartBoxHeight}
-                    on:mouseenter={() => {
-                      box_num = box_list.indexOf(box);
-                      box_update(box_num);
-                    }}
-                    on:mouseleave={() => {
-                      box_reupdate();
-                    }}
-                  />
+                  <g id={"current-"+i}>
+                    <rect
+                      class="ChartBox {box_select != null
+                        ? box_select == box
+                          ? 'this-box-selected'
+                          : 'this-box-not-selected'
+                        : 'pre-box'}"
+                      x={xValueUpdate(index)}
+                      y={yValueUpdate(box, index)}
+                      width={sttChartBoxWidth}
+                      height={sttChartBoxHeight}
+                      on:mouseenter={() => {
+                        box_num = box_list.indexOf(box);
+                        box_update(box_num);
+                      }}
+                      on:mouseleave={() => {
+                        box_reupdate();
+                      }}
+                    />
+                  </g>
                 {/if}
                 {#if box_select == box}
                   {#each btw_arrays_taken as btw_array, index}
-                    {#if btw_arrays_taken.length != index + 1}
-                      <rect
-                        class="ChartPreviousHighlightBox"
-                        x={xValueUpdate(index)}
-                        y={yValueUpdate(box, index)}
-                        width={sttChartBoxWidth}
-                        height={sttChartBoxHeight}
-                        style="fill:yellow"
-                      />
-                    {/if}
+                    <!-- {#if btw_arrays_taken.length != index + 1} -->
+                      <g id={"previous-high-" + index}>
+                        <rect
+                          class="ChartPreviousHighlightBox"
+                          x={xValueUpdate(index)}
+                          y={yValueUpdate(box, index)}
+                          width={sttChartBoxWidth}
+                          height={sttChartBoxHeight}
+                          style="fill:yellow"
+                        />
+                      </g>
+                    <!-- {/if} -->
                   {/each}
                 {/if}
               {/each}
@@ -347,16 +351,24 @@
         {/each}
       </g>
 
-      <!-- <use xlink:href="#topCurrent" /> -->
+      <use xlink:href="#top-current" />
       <!-- <use xlink:href="#topPrevious" /> -->
-      {#if move_num>0}
-      {#each btw_arrays_taken as btw_array, index}
-        {#if btw_arrays_taken.length != index + 1}
-          <use xlink:href={"#top-previous-"+index} />
-        {/if}
-      {/each}
-      {/if}
+      {#if move_num > 0}
+        {#each btw_arrays_taken as btw_array, index}
+          {#if btw_arrays_taken.length != index + 1}
+            <use xlink:href={"#top-previous-" + index} />
+            <use xlink:href={"#previous-high-" + index} />
+          {:else}
+            <use xlink:href={"#previous-high-" + index} />
+          {/if}
+        {/each}
 
+        <!-- {#each boxArray as box, i}
+            {#if i!=0}
+              <use xlink:href={"#current-" + i} />
+            {/if}
+        {/each} -->
+      {/if}
     </svg>
   </div>
 </main>
