@@ -169,7 +169,41 @@
       <g class="sttBoxes">
         {#if move_num > 0}
           {#each btw_arrays_taken as btw_array, index}
-            {#if btw_arrays_taken.length == index + 1}
+            {#if btw_arrays_taken.length != index + 1}
+              {#each btw_array as box, i}
+                {#if i == 0}
+
+                <g id={"top-previous-"+index}>
+                  <rect
+                    class="ChartPreviousBox {box_select != null
+                      ? box_select == box
+                        ? 'this-prev-top-box-selected'
+                        : 'this-prev-top-box-not-selected'
+                      : 'prev-top-pre-box'}"
+                    x={xValueUpdate(index)}
+                    y={yValueUpdate(box, index)}
+                    width={sttChartBoxWidth}
+                    height={sttChartBoxHeight}
+                    style="fill:{colorUpdate(box, box_select, i)}"
+                  />
+                </g>
+             
+                {:else}
+                  <rect
+                    class="ChartPreviousBox {box_select != null
+                      ? box_select == box
+                        ? 'this-prev-box-selected'
+                        : 'this-prev-box-not-selected'
+                      : 'prev-pre-box'}"
+                    x={xValueUpdate(index)}
+                    y={yValueUpdate(box, index)}
+                    width={sttChartBoxWidth}
+                    height={sttChartBoxHeight}
+                    style="fill:{colorUpdate(box, box_select, i)}"
+                  />
+                {/if}
+              {/each}
+            {:else}
               {#each btw_array as box, i}
                 {#if i == 0}
                   <rect
@@ -210,35 +244,19 @@
                     }}
                   />
                 {/if}
-              {/each}
-            {:else}
-              {#each btw_array as box, i}
-                {#if i == 0}
-                  <rect
-                    class="ChartPreviousBox {box_select != null
-                      ? box_select == box
-                        ? 'this-prev-top-box-selected'
-                        : 'this-prev-top-box-not-selected'
-                      : 'prev-top-pre-box'}"
-                    x={xValueUpdate(index)}
-                    y={yValueUpdate(box, index)}
-                    width={sttChartBoxWidth}
-                    height={sttChartBoxHeight}
-                    style="fill:{colorUpdate(box, box_select, i)}"
-                  />
-                {:else}
-                  <rect
-                    class="ChartPreviousBox {box_select != null
-                      ? box_select == box
-                        ? 'this-prev-box-selected'
-                        : 'this-prev-box-not-selected'
-                      : 'prev-pre-box'}"
-                    x={xValueUpdate(index)}
-                    y={yValueUpdate(box, index)}
-                    width={sttChartBoxWidth}
-                    height={sttChartBoxHeight}
-                    style="fill:{colorUpdate(box, box_select, i)}"
-                  />
+                {#if box_select == box}
+                  {#each btw_arrays_taken as btw_array, index}
+                    {#if btw_arrays_taken.length != index + 1}
+                      <rect
+                        class="ChartPreviousHighlightBox"
+                        x={xValueUpdate(index)}
+                        y={yValueUpdate(box, index)}
+                        width={sttChartBoxWidth}
+                        height={sttChartBoxHeight}
+                        style="fill:yellow"
+                      />
+                    {/if}
+                  {/each}
                 {/if}
               {/each}
             {/if}
@@ -331,6 +349,14 @@
 
       <!-- <use xlink:href="#topCurrent" /> -->
       <!-- <use xlink:href="#topPrevious" /> -->
+      {#if move_num>0}
+      {#each btw_arrays_taken as btw_array, index}
+        {#if btw_arrays_taken.length != index + 1}
+          <use xlink:href={"#top-previous-"+index} />
+        {/if}
+      {/each}
+      {/if}
+
     </svg>
   </div>
 </main>
@@ -382,6 +408,7 @@
   .ChartBox.this-box-selected {
     fill: yellow;
     opacity: 1;
+    z-index: 1;
     /* stroke: black;
       stroke-width: 1; */
   }
@@ -389,6 +416,7 @@
   .ChartBox.this-top-box-selected {
     fill: yellow;
     opacity: 1;
+    z-index: 100;
     /* stroke: black;
       stroke-width: 1; */
   }
@@ -396,40 +424,49 @@
   .ChartBox.top-pre-box {
     fill: blue;
     opacity: 1;
+    z-index: 100;
   }
 
   .ChartPreviousBox.this-prev-top-box-selected {
     opacity: 1;
+    z-index: 100;
   }
 
   .ChartPreviousBox.prev-top-pre-box {
     opacity: 1;
+    z-index: 100;
   }
 
   .ChartPreviousBox.this-prev-box-selected {
     opacity: 1;
+    z-index: 1;
   }
 
   .ChartPreviousBox.prev-pre-box {
     opacity: 1;
+    z-index: 1;
   }
 
   .ChartBox.this-box-not-selected {
     fill: #d4d3d3;
     opacity: 1;
+    z-index: 1;
     /* stroke: black;
       stroke-width: 1; */
   }
   .ChartBox.this-top-box-not-selected {
     fill: blue;
-    opacity: 0.3;
+    opacity: 1;
+    z-index: 100;
     /* stroke: black;
       stroke-width: 1; */
   }
   .ChartPreviousBox.this-prev-top-box-not-selected {
-    opacity: 0.3;
+    opacity: 1;
+    z-index: 100;
   }
   .ChartPreviousBox.this-prev-box-not-selected {
-    opacity: 0.3;
+    opacity: 1;
+    z-index: 1;
   }
 </style>

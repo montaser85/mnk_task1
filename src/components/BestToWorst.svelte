@@ -228,7 +228,6 @@ y={y_axis_y1+(btw_array.indexOf(box) * chartBoxHeight)} -->
                     {/if}
                   {/each}
                 {/if}
-
                 <rect
                   class="ChartBox {box_select != null
                     ? box_select == box
