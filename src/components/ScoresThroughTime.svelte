@@ -112,7 +112,13 @@
     if (move_num > 0) {
       btw_arrays_taken = [];
       btw_scores_arrays_taken = [];
-      let limit = Math.ceil(move_num / 2);
+      let limit;
+      if (goes_first=="X"){
+        limit= Math.ceil(move_num / 2);
+      }
+      else if (goes_first=="O"){
+        limit= Math.floor(move_num / 2);
+      }
       for (i = 0; i < limit; i++) {
         btw_arrays_taken.push(btw_arrays[i]);
         btw_scores_arrays_taken.push(btw_scores_arrays[i]);
@@ -248,7 +254,7 @@
     </g>
     <!-- drawing the boxes -->
     <g class="sttBoxes">
-        {#if move_num > 0}
+        {#if move_num >0}
           {#each btw_arrays_taken as btw_array, index}
             {#if btw_arrays_taken.length != index + 1}
               {#each btw_array as box, i}
