@@ -127,7 +127,7 @@
   move_number.subscribe((data) => {
     move_num = data;
   });
-  //   updating the moves and scores arrays
+  //  updating the moves and scores arrays
   $: {
     if (move_num > 0) {
       btw_arrays_taken = [];
